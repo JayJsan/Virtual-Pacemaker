@@ -1,0 +1,38 @@
+scchart Pacemaker {
+
+  region {
+    // === INPUTS === // Two inputs in total
+    // AS = Atrial Sense
+    // VS = Ventricle Sense
+    // ---
+    // DS = Dual Sense (Both AS and VS)
+    
+    // === OUTPUTS === // Two outputs in total
+    // AP = Atrial Pace
+    // VP = Ventricle Pace
+    // ---
+    // DP = Dual Pace (Both AP and VP)
+    
+    // === PACING METHODS ===
+    // TP = Triggered Pace // Pacing is only performed when an EVENT IS NOT DETECTED
+    // IP = Inhibited Pace // Pacing is performed ALL the time UNLESS an event is NOT DETECTED
+    // DP = Dual Pace // use multiple timers and conditions that utilise 
+                      // a combination of each of these methods for overall function
+    
+    // === BEHAVIOUR ===
+    /* If AS is sensed then..
+     * 
+     * 
+     * IF VS is sensed then...
+     * 
+     * 
+     */
+    
+    // === DDD Mode Timings ===
+    /* 
+     * 
+     * 
+     */
+    initial state A 
+  }
+}
