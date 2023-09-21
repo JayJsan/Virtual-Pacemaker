@@ -1,17 +1,25 @@
-scchart Pacemaker {
 
-  region {
-    // === INPUTS === // Two inputs in total
-    // AS = Atrial Sense
-    // VS = Ventricle Sense
-    // ---
-    // DS = Dual Sense (Both AS and VS)
+
+scchart Pacemaker {
+  #define AVI_VALUE 300
+  #define AEI_VALUE 800
+  #define PVARP_VALUE 50
+  #define VRP_VALUE 150
+  #define LRI_VALUE 950
+  #define URI_VALUE 900
+  clock x
+  // === INPUTS === // Two inputs in total
+  // AS = Atrial Sense
+  // VS = Ventricle Sense
+  input signal AS,VS
     
-    // === OUTPUTS === // Two outputs in total
-    // AP = Atrial Pace
-    // VP = Ventricle Pace
-    // ---
-    // DP = Dual Pace (Both AP and VP)
+  // === OUTPUTS === // Two outputs in total
+  // AP = Atrial Pace
+  // VP = Ventricle Pace
+  output signal AP,VP
+    
+    
+    
     
     // === PACING METHODS ===
     // TP = Triggered Pace // Pacing is only performed when an EVENT IS NOT DETECTED
@@ -27,12 +35,74 @@ scchart Pacemaker {
      * 
      * 
      */
+     // Reset AVI when VS received
+     
+     // Reset AEI when AS received
+     
+     // Reset LRI when VP occurs
     
     // === DDD Mode Timings ===
-    /* 
-     * 
-     * 
+    /* AVI - MAX time between A event and V event
+     * PVARP - time where A events are IGNORED and sends AR instead. (Occurs AFTER a V event)
+     * VRP - time where V events are IGNORED and sends VR instead. (Occurs AFTER a V event)
+     * AEI - MAX time between V event and A event
+     * LRI - SLOWEST RATE heart operates. Time between V events
+     * URI - FASTEST RATE heart operates. Time between V events
      */
-    initial state A 
+    initial state makePace {
+      // Checks current time
+      region AVI{
+        // When VS sensed, RESET AEI
+        initial state AVI_Sense
+        if  VS go to 
+        // When at maximum time, 
+        state AVI_Max
+        if c >= AVI_VALUE go to
+      }
+      region PVARP{
+        x = 0
+        // When VS sensed, RESET AEI
+        initial state AVI_Sense
+        if  VS go to 
+        // When at maximum time, 
+        state AVI_Max
+        if c = AVI_VALUE go to
+      }
+      region VRP{
+        x = 0
+        // When VS sensed, RESET AEI
+        initial state AVI_Sense
+        if  VS go to 
+        // When at maximum time, 
+        state AVI_Max
+        if c = AVI_VALUE go to
+      }
+      region AEI{
+        x = 0
+        // When VS sensed, RESET AEI
+        initial state AVI_Sense
+        if  VS go to 
+        // When at maximum time, 
+        state AVI_Max
+        if c = AVI_VALUE go to
+      }
+      region LRI{
+        x = 0
+        // When VS sensed, RESET AEI
+        initial state AVI_Sense
+        if  VS go to 
+        // When at maximum time, 
+        state AVI_Max
+        if c = AVI_VALUE go to
+      }
+      region URI{
+        x = 0
+        // When VS sensed, RESET AEI
+        initial state AVI_Sense
+        if  VS go to 
+        // When at maximum time, 
+        state AVI_Max
+        if c = AVI_VALUE go to
+      }
+    }
   }
-}
