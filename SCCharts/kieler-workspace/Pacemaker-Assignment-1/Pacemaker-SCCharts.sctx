@@ -1,26 +1,40 @@
-
+// Get timing.h
+#hostcode-c "#include \"timing.h\""
+#hostcode-c "#include <stdio.h>"
 
 scchart Pacemaker {
-  #define AVI_VALUE 300
-  #define AEI_VALUE 800
-  #define PVARP_VALUE 50
-  #define VRP_VALUE 150
-  #define LRI_VALUE 950
-  #define URI_VALUE 900
+  // Get timing parameters from timing.h
+  host "int" AVI_Constraint = `AVI_VALUE`
+  host "int" AEI_Constraint = `AEI_VALUE`
+  host "int" PVARP_Constraint = `PVARP_VALUE`
+  host "int" VRP_Constraint = `VRP_VALUE`
+  host "int" LRI_Constraint = `LRI_VALUE`
+  host "int" URI_Constraint = `URI_VALUE`
+  
   clock x
-  // === INPUTS === // Two inputs in total
+  
+  
+  
+  
+  
+  
+  // === INPUTS === 
   // AS = Atrial Sense
   // VS = Ventricle Sense
   input signal AS,VS
     
-  // === OUTPUTS === // Two outputs in total
+  
+    
+  // === OUTPUTS ===
   // AP = Atrial Pace
   // VP = Ventricle Pace
   output signal AP,VP
-    
-    
-    
-    
+  
+  output signal AR,VR
+  
+  
+  
+  
     // === PACING METHODS ===
     // TP = Triggered Pace // Pacing is only performed when an EVENT IS NOT DETECTED
     // IP = Inhibited Pace // Pacing is performed ALL the time UNLESS an event is NOT DETECTED
