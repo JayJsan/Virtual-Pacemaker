@@ -22,11 +22,11 @@ scchart Pacemaker {
   output signal AP,VP
   output signal AR,VR
   
-  
-  /*
-  region Main {
-    clock AVI_Clock = 0
+      clock AVI_Clock = 0
     clock VEvents_Clock = 0 // Since PVARP, VRP, AEI, LRI, and URI all start at an ventricular event
+  
+  region Main {
+
     bool AVI_Stop = true
     bool VEvents_Stop = true
     
@@ -36,8 +36,8 @@ scchart Pacemaker {
       if VEvents_Clock >= AEI go to AS_NotSensed
             
       state InAtriumRefractoryPeriod
-      if AS && VEvents_Clock < PVARP do AR go to InAtriumRefractoryPeriod
-      if VS && VEvents_Clock < VRP do VR go to InAtriumRefractoryPeriod
+      if AS && (PVARP > VEvents_Clock) do AR go to InAtriumRefractoryPeriod
+      if VS && (VRP > VEvents_Clock) do VR go to InAtriumRefractoryPeriod
       if VEvents_Clock >= PVARP go to WaitForAS
       if VEvents_Stop = true go to WaitForAS
       
@@ -89,7 +89,7 @@ scchart Pacemaker {
       }
     }
   }
-   */
+   
   
     // === PACING METHODS ===
     // TP = Triggered Pace // Pacing is only performed when an EVENT IS NOT DETECTED
@@ -121,7 +121,7 @@ scchart Pacemaker {
      */
      
  
-     
+     /*
     initial state makePace {
       // Checks current time
       region AVI{
@@ -178,5 +178,5 @@ scchart Pacemaker {
         if c = AVI_VALUE go to
       }
     }
-    
+     */
   }
