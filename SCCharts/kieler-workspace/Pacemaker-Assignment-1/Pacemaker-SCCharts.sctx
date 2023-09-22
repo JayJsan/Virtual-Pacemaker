@@ -22,9 +22,9 @@ scchart Pacemaker {
   output signal AP,VP
   output signal AR,VR
   
-      clock AVI_Clock = 0
-    clock VEvents_Clock = 0 // Since PVARP, VRP, AEI, LRI, and URI all start at an ventricular event
-  
+  clock AVI_Clock = 0
+  clock VEvents_Clock = 0 // Since PVARP, VRP, AEI, LRI, and URI all start at an ventricular event
+  /*
   region Main {
 
     bool AVI_Stop = true
@@ -89,7 +89,7 @@ scchart Pacemaker {
       }
     }
   }
-   
+  */
   
     // === PACING METHODS ===
     // TP = Triggered Pace // Pacing is only performed when an EVENT IS NOT DETECTED
