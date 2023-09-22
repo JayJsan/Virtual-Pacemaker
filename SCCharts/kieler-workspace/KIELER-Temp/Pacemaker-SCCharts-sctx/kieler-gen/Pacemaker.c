@@ -1,0 +1,2005 @@
+/*
+ * Automatically generated C code by
+ * KIELER SCCharts - The Key to Efficient Modeling
+ *
+ * http://rtsys.informatik.uni-kiel.de/kieler
+ */
+#include <stdio.h>
+#include "Pacemaker.h"
+
+static inline void Pacemaker_region__EA_Entry_state__EA_C10(Pacemaker_region__EA_EntryContext *context) {
+  context->iface->sleepT = 0.0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_MAIN;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_C9(Pacemaker_region__EA_EntryContext *context) {
+  context->iface->deltaT = 0.0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C10;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_C8(Pacemaker_region__EA_EntryContext *context) {
+  context->iface->_region0_Main_VEvents_Stop = 1;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C9;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_C7(Pacemaker_region__EA_EntryContext *context) {
+  context->iface->_region0_Main_AVI_Stop = 1;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C8;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_C6(Pacemaker_region__EA_EntryContext *context) {
+  context->iface->_region0_Main_VEvents_Clock = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C7;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_C5(Pacemaker_region__EA_EntryContext *context) {
+  context->iface->_region0_Main_AVI_Clock = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C6;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_C4(Pacemaker_region__EA_EntryContext *context) {
+  context->iface->URI = URI_VALUE;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C5;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_C3(Pacemaker_region__EA_EntryContext *context) {
+  context->iface->LRI = LRI_VALUE;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C4;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_C2(Pacemaker_region__EA_EntryContext *context) {
+  context->iface->VRP = VRP_VALUE;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C3;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_C1(Pacemaker_region__EA_EntryContext *context) {
+  context->iface->PVARP = PVARP_VALUE;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C2;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_C(Pacemaker_region__EA_EntryContext *context) {
+  context->iface->AEI = AEI_VALUE;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C1;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Done(Pacemaker_region__EA_EntryContext *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Init(Pacemaker_region__EA_EntryContext *context) {
+  context->iface->AVI = AVI_VALUE;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Done(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1Context *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Init(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1Context *context) {
+  context->iface->_taken_transitions[0] = 0;
+  context->iface->_taken_transitions[1] = 0;
+  context->iface->_taken_transitions[2] = 0;
+  context->iface->_taken_transitions[3] = 0;
+  context->iface->_taken_transitions[4] = 0;
+  context->iface->_taken_transitions[5] = 0;
+  context->iface->_taken_transitions[6] = 0;
+  context->iface->_taken_transitions[7] = 0;
+  context->iface->_taken_transitions[8] = 0;
+  context->iface->_taken_transitions[9] = 0;
+  context->iface->_taken_transitions[10] = 0;
+  context->iface->_taken_transitions[11] = 0;
+  context->iface->_taken_transitions[12] = 0;
+  context->iface->_taken_transitions[13] = 0;
+  context->iface->_taken_transitions[14] = 0;
+  context->iface->_taken_transitions[15] = 0;
+  context->iface->_taken_transitions[16] = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_MAIN1;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_state__EA_Exit1(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_TimerContext *context) {
+  if (context->delayedEnabled && (context->iface->_region0_Main_VEvents_Stop)) {
+    context->iface->_taken_transitions[15] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = STOP_TIMER33;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Done(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6Context *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Init(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6Context *context) {
+  context->iface->_Pacemaker_local__Atrig10 = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_MAIN34;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During_state_Aaborted6(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_DuringContext *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During_state_I(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_DuringContext *context) {
+  if (context->delayedEnabled) {
+    context->iface->_region0_Main_VEvents_Clock = 0;
+    context->delayedEnabled = 0;
+  } else if (context->iface->_Pacemaker_local__Atrig10) {
+    context->delayedEnabled = 0;
+    context->activeState = _AABORTED6;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_DuringContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _I35:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During_state_I(context);
+                break;
+      
+      case _AABORTED6:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During_state_Aaborted6(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4_state_ADone4(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4Context *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4_state_ARun4(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4Context *context) {
+  if (context->delayedEnabled && (!context->iface->_region0_Main_VEvents_Stop)) {
+    context->iface->_Pacemaker_local__Atrig10 = 1;
+    context->delayedEnabled = 0;
+    context->activeState = _ADONE4;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _ARUN4:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4_state_ARun4(context);
+                break;
+      
+      case _ADONE4:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4_state_ADone4(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6Context *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4.activeState = _ARUN4;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During.activeState = _I35;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During.threadStatus = READY;
+  context->activeState = __EA_MAIN34RUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6Context *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4.threadStatus == TERMINATED && 
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During.threadStatus == TERMINATED) {
+    context->delayedEnabled = 0;
+    context->activeState = __EA_DONE37;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4.delayedEnabled = 1;
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case __EA_MAIN34:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main(context);
+        // Superstate: intended fall-through 
+      case __EA_MAIN34RUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_running(context);
+        break;
+      
+      case __EA_INIT36:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Init(context);
+                break;
+      
+      case __EA_DONE37:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Done(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_TimerContext *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6.activeState = __EA_INIT36;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6.threadStatus = READY;
+  context->activeState = STOP_TIMER33RUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_TimerContext *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6.threadStatus == TERMINATED) {
+    context->iface->_taken_transitions[16] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = CONTINUE_TIMER30;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry_state__EA_Done(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_EntryContext *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry_state__EA_Init(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_EntryContext *context) {
+  context->iface->_region0_Main_VEvents_Clock = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_DONE32;
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_EntryContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case __EA_INIT31:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry_state__EA_Init(context);
+                break;
+      
+      case __EA_DONE32:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry_state__EA_Done(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_TimerContext *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry.activeState = __EA_INIT31;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry.threadStatus = READY;
+  context->activeState = CONTINUE_TIMER30RUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_TimerContext *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry.threadStatus == TERMINATED) {
+    context->delayedEnabled = 0;
+    context->activeState = __EA_EXIT1;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_TimerContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case CONTINUE_TIMER30:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer(context);
+        // Superstate: intended fall-through 
+      case CONTINUE_TIMER30RUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_running(context);
+        break;
+      
+      case STOP_TIMER33:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer(context);
+        // Superstate: intended fall-through 
+      case STOP_TIMER33RUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_running(context);
+        break;
+      
+      case __EA_EXIT1:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_state__EA_Exit1(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_state__EA_Exit(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_TimerContext *context) {
+  if (context->delayedEnabled && (context->iface->_region0_Main_AVI_Stop)) {
+    context->iface->_taken_transitions[13] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = STOP_TIMER;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Done(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5Context *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Init(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5Context *context) {
+  context->iface->_Pacemaker_local__Atrig9 = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_MAIN26;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During_state_Aaborted5(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_DuringContext *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During_state_I(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_DuringContext *context) {
+  if (context->delayedEnabled) {
+    context->iface->_region0_Main_AVI_Clock = 0;
+    context->delayedEnabled = 0;
+  } else if (context->iface->_Pacemaker_local__Atrig9) {
+    context->delayedEnabled = 0;
+    context->activeState = _AABORTED5;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_DuringContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _I27:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During_state_I(context);
+                break;
+      
+      case _AABORTED5:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During_state_Aaborted5(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3_state_ADone3(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3Context *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3_state_ARun3(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3Context *context) {
+  if (context->delayedEnabled && (!context->iface->_region0_Main_AVI_Stop)) {
+    context->iface->_Pacemaker_local__Atrig9 = 1;
+    context->delayedEnabled = 0;
+    context->activeState = _ADONE3;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _ARUN3:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3_state_ARun3(context);
+                break;
+      
+      case _ADONE3:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3_state_ADone3(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5Context *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3.activeState = _ARUN3;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During.activeState = _I27;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During.threadStatus = READY;
+  context->activeState = __EA_MAIN26RUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5Context *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3.threadStatus == TERMINATED && 
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During.threadStatus == TERMINATED) {
+    context->delayedEnabled = 0;
+    context->activeState = __EA_DONE29;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3.delayedEnabled = 1;
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case __EA_MAIN26:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main(context);
+        // Superstate: intended fall-through 
+      case __EA_MAIN26RUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_running(context);
+        break;
+      
+      case __EA_INIT28:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Init(context);
+                break;
+      
+      case __EA_DONE29:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Done(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_TimerContext *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5.activeState = __EA_INIT28;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5.threadStatus = READY;
+  context->activeState = STOP_TIMERRUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_TimerContext *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5.threadStatus == TERMINATED) {
+    context->iface->_taken_transitions[14] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = CONTINUE_TIMER;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry_state__EA_Done(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_EntryContext *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry_state__EA_Init(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_EntryContext *context) {
+  context->iface->_region0_Main_AVI_Clock = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_DONE25;
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_EntryContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case __EA_INIT24:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry_state__EA_Init(context);
+                break;
+      
+      case __EA_DONE25:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry_state__EA_Done(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_TimerContext *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry.activeState = __EA_INIT24;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry.threadStatus = READY;
+  context->activeState = CONTINUE_TIMERRUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_TimerContext *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry.threadStatus == TERMINATED) {
+    context->delayedEnabled = 0;
+    context->activeState = __EA_EXIT;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_TimerContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case CONTINUE_TIMER:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer(context);
+        // Superstate: intended fall-through 
+      case CONTINUE_TIMERRUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_running(context);
+        break;
+      
+      case STOP_TIMER:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer(context);
+        // Superstate: intended fall-through 
+      case STOP_TIMERRUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_running(context);
+        break;
+      
+      case __EA_EXIT:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_state__EA_Exit(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimersContext *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer.activeState = CONTINUE_TIMER;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer.activeState = CONTINUE_TIMER30;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer.threadStatus = READY;
+  context->activeState = _IMPLICIT23RUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimersContext *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer);
+
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer.delayedEnabled = 1;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer.delayedEnabled = 1;
+  context->threadStatus = READY;
+
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimersContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _IMPLICIT23:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit(context);
+        // Superstate: intended fall-through 
+      case _IMPLICIT23RUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_running(context);
+        break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_state_AC2(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+  if (context->iface->_Pacemaker_local__Atrig6) {
+    context->iface->_taken_transitions[8] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = VS_SENSED;
+  } else if (context->iface->_Pacemaker_local__Atrig7) {
+    context->iface->_taken_transitions[9] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = VS_NOTSENSED;
+  } else {
+    context->iface->_taken_transitions[10] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = VS_NOTSENSED;
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_state_AC1(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+  if (context->iface->_Pacemaker_local__Atrig2) {
+    context->iface->AR |= 1;
+    context->iface->_taken_transitions[2] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = INATRIUMREFRACTORYPERIOD;
+  } else if (context->iface->_Pacemaker_local__Atrig3) {
+    context->iface->VR |= 1;
+    context->iface->_taken_transitions[3] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = INATRIUMREFRACTORYPERIOD;
+  } else if (context->iface->_Pacemaker_local__Atrig4) {
+    context->iface->_taken_transitions[4] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = WAITFORAS;
+  } else {
+    context->iface->_taken_transitions[5] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = WAITFORAS;
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_state_AC(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+  if (context->iface->_Pacemaker_local__Atrig) {
+    context->iface->_taken_transitions[0] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = AS_SENSED;
+  } else {
+    context->iface->_taken_transitions[1] += 1;
+    context->delayedEnabled = 0;
+    context->activeState = AS_NOTSENSED;
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateVS_NotSensed(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+  context->iface->VP |= 1;
+  context->iface->_region0_Main_AVI_Stop = 1;
+  context->iface->_region0_Main_VEvents_Clock = 0;
+  context->iface->_region0_Main_VEvents_Clock = 1;
+  context->iface->_taken_transitions[12] += 1;
+  context->delayedEnabled = 0;
+  context->activeState = INATRIUMREFRACTORYPERIOD;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateVS_Sensed(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+  context->iface->_region0_Main_AVI_Stop = 1;
+  context->iface->_region0_Main_VEvents_Clock = 0;
+  context->iface->_region0_Main_VEvents_Clock = 1;
+  context->iface->_taken_transitions[11] += 1;
+  context->delayedEnabled = 0;
+  context->activeState = INATRIUMREFRACTORYPERIOD;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_C16(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4Context *context) {
+  context->iface->_Pacemaker_local__Atrig8 = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_MAIN14;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_C15(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4Context *context) {
+  context->iface->_Pacemaker_local__Atrig7 = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C16;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Done(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4Context *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Init(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4Context *context) {
+  context->iface->_Pacemaker_local__Atrig6 = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C15;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3_state_Aaborted4(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3Context *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3_state_S(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3Context *context) {
+  if (context->delayedEnabled) {
+    context->delayedEnabled = 0;
+    context->activeState = _I19;
+  } else if (context->iface->_Pacemaker_local__Atrig6 || context->iface->_Pacemaker_local__Atrig7 || context->iface->_Pacemaker_local__Atrig8) {
+    context->delayedEnabled = 0;
+    context->activeState = _AABORTED4;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3_state_I(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3Context *context) {
+  if (context->iface->_region0_Main_VEvents_Clock < context->iface->LRI) {
+    context->iface->sleepT = (context->iface->sleepT < context->iface->LRI - context->iface->_region0_Main_VEvents_Clock) ? context->iface->sleepT : context->iface->LRI - context->iface->_region0_Main_VEvents_Clock;
+    context->delayedEnabled = 0;
+    context->activeState = _S20;
+  } else if (context->iface->_Pacemaker_local__Atrig6 || context->iface->_Pacemaker_local__Atrig7 || context->iface->_Pacemaker_local__Atrig8) {
+    context->delayedEnabled = 0;
+    context->activeState = _AABORTED4;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _I19:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3_state_I(context);
+                break;
+      
+      case _S20:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3_state_S(context);
+                break;
+      
+      case _AABORTED4:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3_state_Aaborted4(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2_state_Aaborted3(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2Context *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2_state_S(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2Context *context) {
+  if (context->delayedEnabled) {
+    context->delayedEnabled = 0;
+    context->activeState = _I17;
+  } else if (context->iface->_Pacemaker_local__Atrig6 || context->iface->_Pacemaker_local__Atrig7 || context->iface->_Pacemaker_local__Atrig8) {
+    context->delayedEnabled = 0;
+    context->activeState = _AABORTED3;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2_state_I(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2Context *context) {
+  if (context->iface->_region0_Main_VEvents_Clock < context->iface->AVI) {
+    context->iface->sleepT = (context->iface->sleepT < context->iface->AVI - context->iface->_region0_Main_VEvents_Clock) ? context->iface->sleepT : context->iface->AVI - context->iface->_region0_Main_VEvents_Clock;
+    context->delayedEnabled = 0;
+    context->activeState = _S18;
+  } else if (context->iface->_Pacemaker_local__Atrig6 || context->iface->_Pacemaker_local__Atrig7 || context->iface->_Pacemaker_local__Atrig8) {
+    context->delayedEnabled = 0;
+    context->activeState = _AABORTED3;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _I17:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2_state_I(context);
+                break;
+      
+      case _S18:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2_state_S(context);
+                break;
+      
+      case _AABORTED3:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2_state_Aaborted3(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During_state_Aaborted2(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_DuringContext *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During_state_S(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_DuringContext *context) {
+  if (context->delayedEnabled) {
+    context->delayedEnabled = 0;
+    context->activeState = _I15;
+  } else if (context->iface->_Pacemaker_local__Atrig6 || context->iface->_Pacemaker_local__Atrig7 || context->iface->_Pacemaker_local__Atrig8) {
+    context->delayedEnabled = 0;
+    context->activeState = _AABORTED2;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During_state_I(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_DuringContext *context) {
+  if (context->iface->_region0_Main_VEvents_Clock < context->iface->URI) {
+    context->iface->sleepT = (context->iface->sleepT < context->iface->URI - context->iface->_region0_Main_VEvents_Clock) ? context->iface->sleepT : context->iface->URI - context->iface->_region0_Main_VEvents_Clock;
+    context->delayedEnabled = 0;
+    context->activeState = _S16;
+  } else if (context->iface->_Pacemaker_local__Atrig6 || context->iface->_Pacemaker_local__Atrig7 || context->iface->_Pacemaker_local__Atrig8) {
+    context->delayedEnabled = 0;
+    context->activeState = _AABORTED2;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_DuringContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _I15:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During_state_I(context);
+                break;
+      
+      case _S16:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During_state_S(context);
+                break;
+      
+      case _AABORTED2:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During_state_Aaborted2(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2_state_ADone2(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2Context *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2_state_ARun2(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2Context *context) {
+  if (context->delayedEnabled && (context->iface->VS)) {
+    context->iface->_Pacemaker_local__Atrig6 = 1;
+    context->delayedEnabled = 0;
+    context->activeState = _ADONE2;
+  } else if (context->delayedEnabled && (context->iface->_region0_Main_VEvents_Clock >= context->iface->URI && context->iface->_region0_Main_VEvents_Clock >= context->iface->AVI)) {
+    context->iface->_Pacemaker_local__Atrig7 = 1;
+    context->delayedEnabled = 0;
+    context->activeState = _ADONE2;
+  } else if (context->delayedEnabled && (context->iface->_region0_Main_VEvents_Clock >= context->iface->LRI)) {
+    context->iface->_Pacemaker_local__Atrig8 = 1;
+    context->delayedEnabled = 0;
+    context->activeState = _ADONE2;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _ARUN2:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2_state_ARun2(context);
+                break;
+      
+      case _ADONE2:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2_state_ADone2(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4Context *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2.activeState = _ARUN2;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During.activeState = _I15;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2.activeState = _I17;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3.activeState = _I19;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3.threadStatus = READY;
+  context->activeState = __EA_MAIN14RUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4Context *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2.threadStatus == TERMINATED && 
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During.threadStatus == TERMINATED && 
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2.threadStatus == TERMINATED && 
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3.threadStatus == TERMINATED) {
+    context->delayedEnabled = 0;
+    context->activeState = __EA_DONE22;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2.delayedEnabled = 1;
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During.delayedEnabled = 1;
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2.delayedEnabled = 1;
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case __EA_MAIN14:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main(context);
+        // Superstate: intended fall-through 
+      case __EA_MAIN14RUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_running(context);
+        break;
+      
+      case __EA_INIT21:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Init(context);
+                break;
+      
+      case __EA_DONE22:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Done(context);
+                break;
+      
+      case __EA_C15:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_C15(context);
+                break;
+      
+      case __EA_C16:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_C16(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4.activeState = __EA_INIT21;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4.threadStatus = READY;
+  context->activeState = WAITFORVSRUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4.threadStatus == TERMINATED) {
+    context->delayedEnabled = 0;
+    context->activeState = _AC2;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateAS_NotSensed(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+  context->iface->AP |= 1;
+  context->iface->_region0_Main_AVI_Clock = 0;
+  context->iface->_region0_Main_AVI_Stop = 0;
+  context->iface->_taken_transitions[7] += 1;
+  context->delayedEnabled = 0;
+  context->activeState = WAITFORVS;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateAS_Sensed(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+  context->iface->_region0_Main_AVI_Clock = 0;
+  context->iface->_region0_Main_AVI_Stop = 0;
+  context->iface->_taken_transitions[6] += 1;
+  context->delayedEnabled = 0;
+  context->activeState = WAITFORVS;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_C14(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3Context *context) {
+  context->iface->_Pacemaker_local__Atrig5 = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_MAIN9;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_C13(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3Context *context) {
+  context->iface->_Pacemaker_local__Atrig4 = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C14;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_C12(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3Context *context) {
+  context->iface->_Pacemaker_local__Atrig3 = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C13;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Done(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3Context *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Init(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3Context *context) {
+  context->iface->_Pacemaker_local__Atrig2 = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C12;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During_state_Aaborted1(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_DuringContext *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During_state_S(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_DuringContext *context) {
+  if (context->delayedEnabled) {
+    context->delayedEnabled = 0;
+    context->activeState = _I10;
+  } else if (context->iface->_Pacemaker_local__Atrig2 || context->iface->_Pacemaker_local__Atrig3 || context->iface->_Pacemaker_local__Atrig4 || context->iface->_Pacemaker_local__Atrig5) {
+    context->delayedEnabled = 0;
+    context->activeState = _AABORTED1;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During_state_I(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_DuringContext *context) {
+  if (context->iface->_region0_Main_VEvents_Clock < context->iface->PVARP) {
+    context->iface->sleepT = (context->iface->sleepT < context->iface->PVARP - context->iface->_region0_Main_VEvents_Clock) ? context->iface->sleepT : context->iface->PVARP - context->iface->_region0_Main_VEvents_Clock;
+    context->delayedEnabled = 0;
+    context->activeState = _S11;
+  } else if (context->iface->_Pacemaker_local__Atrig2 || context->iface->_Pacemaker_local__Atrig3 || context->iface->_Pacemaker_local__Atrig4 || context->iface->_Pacemaker_local__Atrig5) {
+    context->delayedEnabled = 0;
+    context->activeState = _AABORTED1;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_DuringContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _I10:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During_state_I(context);
+                break;
+      
+      case _S11:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During_state_S(context);
+                break;
+      
+      case _AABORTED1:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During_state_Aaborted1(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1_state_ADone1(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1Context *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1_state_ARun1(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1Context *context) {
+  if (context->delayedEnabled && (context->iface->AS && context->iface->_region0_Main_VEvents_Clock < context->iface->PVARP)) {
+    context->iface->_Pacemaker_local__Atrig2 = 1;
+    context->delayedEnabled = 0;
+    context->activeState = _ADONE1;
+  } else if (context->delayedEnabled && (context->iface->VS && context->iface->_region0_Main_VEvents_Clock < context->iface->VRP)) {
+    context->iface->_Pacemaker_local__Atrig3 = 1;
+    context->delayedEnabled = 0;
+    context->activeState = _ADONE1;
+  } else if (context->delayedEnabled && (context->iface->_region0_Main_VEvents_Clock >= context->iface->PVARP)) {
+    context->iface->_Pacemaker_local__Atrig4 = 1;
+    context->delayedEnabled = 0;
+    context->activeState = _ADONE1;
+  } else if (context->delayedEnabled && (context->iface->_region0_Main_VEvents_Stop)) {
+    context->iface->_Pacemaker_local__Atrig5 = 1;
+    context->delayedEnabled = 0;
+    context->activeState = _ADONE1;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _ARUN1:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1_state_ARun1(context);
+                break;
+      
+      case _ADONE1:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1_state_ADone1(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3Context *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1.activeState = _ARUN1;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During.activeState = _I10;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During.threadStatus = READY;
+  context->activeState = __EA_MAIN9RUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3Context *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1.threadStatus == TERMINATED && 
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During.threadStatus == TERMINATED) {
+    context->delayedEnabled = 0;
+    context->activeState = __EA_DONE13;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1.delayedEnabled = 1;
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case __EA_MAIN9:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main(context);
+        // Superstate: intended fall-through 
+      case __EA_MAIN9RUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_running(context);
+        break;
+      
+      case __EA_INIT12:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Init(context);
+                break;
+      
+      case __EA_DONE13:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Done(context);
+                break;
+      
+      case __EA_C12:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_C12(context);
+                break;
+      
+      case __EA_C13:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_C13(context);
+                break;
+      
+      case __EA_C14:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_C14(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3.activeState = __EA_INIT12;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3.threadStatus = READY;
+  context->activeState = INATRIUMREFRACTORYPERIODRUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3.threadStatus == TERMINATED) {
+    context->delayedEnabled = 0;
+    context->activeState = _AC1;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_C11(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2Context *context) {
+  context->iface->_Pacemaker_local__Atrig1 = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_MAIN6;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Done(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2Context *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Init(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2Context *context) {
+  context->iface->_Pacemaker_local__Atrig = 0;
+  context->delayedEnabled = 0;
+  context->activeState = __EA_C11;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During_state_Aaborted(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_DuringContext *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During_state_S(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_DuringContext *context) {
+  if (context->delayedEnabled) {
+    context->delayedEnabled = 0;
+    context->activeState = _I7;
+  } else if (context->iface->_Pacemaker_local__Atrig || context->iface->_Pacemaker_local__Atrig1) {
+    context->delayedEnabled = 0;
+    context->activeState = _AABORTED;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During_state_I(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_DuringContext *context) {
+  if (context->iface->_region0_Main_VEvents_Clock < context->iface->AEI) {
+    context->iface->sleepT = (context->iface->sleepT < context->iface->AEI - context->iface->_region0_Main_VEvents_Clock) ? context->iface->sleepT : context->iface->AEI - context->iface->_region0_Main_VEvents_Clock;
+    context->delayedEnabled = 0;
+    context->activeState = _S8;
+  } else if (context->iface->_Pacemaker_local__Atrig || context->iface->_Pacemaker_local__Atrig1) {
+    context->delayedEnabled = 0;
+    context->activeState = _AABORTED;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_DuringContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _I7:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During_state_I(context);
+                break;
+      
+      case _S8:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During_state_S(context);
+                break;
+      
+      case _AABORTED:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During_state_Aaborted(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl_state_ADone(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrlContext *context) {
+  context->threadStatus = TERMINATED;
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl_state_ARun(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrlContext *context) {
+  if (context->delayedEnabled && (context->iface->AS)) {
+    context->iface->_Pacemaker_local__Atrig = 1;
+    context->delayedEnabled = 0;
+    context->activeState = _ADONE;
+  } else if (context->delayedEnabled && (context->iface->_region0_Main_VEvents_Clock >= context->iface->AEI)) {
+    context->iface->_Pacemaker_local__Atrig1 = 1;
+    context->delayedEnabled = 0;
+    context->activeState = _ADONE;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrlContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _ARUN:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl_state_ARun(context);
+                break;
+      
+      case _ADONE:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl_state_ADone(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2Context *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl.activeState = _ARUN;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During.activeState = _I7;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During.threadStatus = READY;
+  context->activeState = __EA_MAIN6RUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2Context *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl.threadStatus == TERMINATED && 
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During.threadStatus == TERMINATED) {
+    context->delayedEnabled = 0;
+    context->activeState = __EA_DONE;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl.delayedEnabled = 1;
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case __EA_MAIN6:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main(context);
+        // Superstate: intended fall-through 
+      case __EA_MAIN6RUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_running(context);
+        break;
+      
+      case __EA_INIT:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Init(context);
+                break;
+      
+      case __EA_DONE:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Done(context);
+                break;
+      
+      case __EA_C11:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_C11(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2.activeState = __EA_INIT;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2.threadStatus = READY;
+  context->activeState = WAITFORASRUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2.threadStatus == TERMINATED) {
+    context->delayedEnabled = 0;
+    context->activeState = _AC;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionControllerContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case WAITFORAS:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS(context);
+        // Superstate: intended fall-through 
+      case WAITFORASRUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_running(context);
+        break;
+      
+      case INATRIUMREFRACTORYPERIOD:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod(context);
+        // Superstate: intended fall-through 
+      case INATRIUMREFRACTORYPERIODRUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_running(context);
+        break;
+      
+      case AS_SENSED:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateAS_Sensed(context);
+                break;
+      
+      case AS_NOTSENSED:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateAS_NotSensed(context);
+                break;
+      
+      case WAITFORVS:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS(context);
+        // Superstate: intended fall-through 
+      case WAITFORVSRUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_running(context);
+        break;
+      
+      case VS_SENSED:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateVS_Sensed(context);
+                break;
+      
+      case VS_NOTSENSED:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateVS_NotSensed(context);
+                break;
+      
+      case _AC:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_state_AC(context);
+                break;
+      
+      case _AC1:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_state_AC1(context);
+                break;
+      
+      case _AC2:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_state_AC2(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMainContext *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.activeState = WAITFORAS;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.activeState = _IMPLICIT23;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.threadStatus = READY;
+  context->activeState = _IMPLICITRUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMainContext *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers);
+
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.delayedEnabled = 1;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.delayedEnabled = 1;
+  context->threadStatus = READY;
+
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMainContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _IMPLICIT:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit(context);
+        // Superstate: intended fall-through 
+      case _IMPLICITRUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_running(context);
+        break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1_state_I(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1Context *context) {
+  if (context->delayedEnabled) {
+    context->iface->_region0_Main_VEvents_Clock += context->iface->deltaT;
+    context->delayedEnabled = 0;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _I5:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1_state_I(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0_state_I(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0Context *context) {
+  if (context->delayedEnabled) {
+    context->iface->_region0_Main_AVI_Clock += context->iface->deltaT;
+    context->delayedEnabled = 0;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _I4:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0_state_I(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During_state_S(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_DuringContext *context) {
+  if (context->delayedEnabled) {
+    context->delayedEnabled = 0;
+    context->activeState = _I2;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During_state_I(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_DuringContext *context) {
+  context->iface->sleepT = 1000.0;
+  context->delayedEnabled = 0;
+  context->activeState = _S3;
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_DuringContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _I2:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During_state_I(context);
+                break;
+      
+      case _S3:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During_state_S(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1Context *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During.activeState = _I2;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0.activeState = _I4;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1.activeState = _I5;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.activeState = _IMPLICIT;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.threadStatus = READY;
+  context->activeState = __EA_MAIN1RUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_running(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1Context *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During.threadStatus == TERMINATED && 
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0.threadStatus == TERMINATED && 
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1.threadStatus == TERMINATED && 
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.threadStatus == TERMINATED) {
+    context->delayedEnabled = 0;
+    context->activeState = __EA_DONE39;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During.delayedEnabled = 1;
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0.delayedEnabled = 1;
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1.delayedEnabled = 1;
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1(Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1Context *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case __EA_MAIN1:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main(context);
+        // Superstate: intended fall-through 
+      case __EA_MAIN1RUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_running(context);
+        break;
+      
+      case __EA_INIT38:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Init(context);
+                break;
+      
+      case __EA_DONE39:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Done(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main(Pacemaker_region__EA_Entry_state__EA_Main_region_mainContext *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.activeState = __EA_INIT38;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.threadStatus = READY;
+  context->activeState = _MAINRUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_running(Pacemaker_region__EA_Entry_state__EA_Main_region_mainContext *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1);
+
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.delayedEnabled = 1;
+  context->threadStatus = READY;
+
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_main(Pacemaker_region__EA_Entry_state__EA_Main_region_mainContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _MAIN:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main(context);
+        // Superstate: intended fall-through 
+      case _MAINRUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_running(context);
+        break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_During_state_S(Pacemaker_region__EA_Entry_state__EA_Main_region_DuringContext *context) {
+  if (context->delayedEnabled) {
+    context->delayedEnabled = 0;
+    context->activeState = _I;
+  } else {
+    context->threadStatus = READY;
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_region_During_state_I(Pacemaker_region__EA_Entry_state__EA_Main_region_DuringContext *context) {
+  context->iface->AP = 0;
+  context->iface->VP = 0;
+  context->iface->AR = 0;
+  context->iface->VR = 0;
+  context->delayedEnabled = 0;
+  context->activeState = _S;
+}
+
+static void Pacemaker_region__EA_Entry_state__EA_Main_region_During(Pacemaker_region__EA_Entry_state__EA_Main_region_DuringContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case _I:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_During_state_I(context);
+                break;
+      
+      case _S:
+        Pacemaker_region__EA_Entry_state__EA_Main_region_During_state_S(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main(Pacemaker_region__EA_EntryContext *context) {
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_During.activeState = _I;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_During.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_During.threadStatus = READY;
+
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main.activeState = _MAIN;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main.delayedEnabled = 0;
+  context->Pacemaker_region__EA_Entry_state__EA_Main_region_main.threadStatus = READY;
+  context->activeState = __EA_MAINRUNNING;
+}
+
+
+static inline void Pacemaker_region__EA_Entry_state__EA_Main_running(Pacemaker_region__EA_EntryContext *context) {
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_During.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_During.threadStatus = RUNNING;
+  }
+  
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_main.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry_state__EA_Main_region_main.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_During(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_During);
+
+  Pacemaker_region__EA_Entry_state__EA_Main_region_main(&context->Pacemaker_region__EA_Entry_state__EA_Main_region_main);
+
+  if (context->Pacemaker_region__EA_Entry_state__EA_Main_region_During.threadStatus == TERMINATED && 
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main.threadStatus == TERMINATED) {
+    context->delayedEnabled = 0;
+    context->activeState = __EA_DONE41;
+  } else {
+  
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_During.delayedEnabled = 1;
+      context->Pacemaker_region__EA_Entry_state__EA_Main_region_main.delayedEnabled = 1;
+    context->threadStatus = READY;
+  }
+
+}
+
+static void Pacemaker_region__EA_Entry(Pacemaker_region__EA_EntryContext *context) {
+  while (context->threadStatus == RUNNING) {
+    switch (context->activeState) {
+      case __EA_MAIN:
+        Pacemaker_region__EA_Entry_state__EA_Main(context);
+        // Superstate: intended fall-through 
+      case __EA_MAINRUNNING:
+        Pacemaker_region__EA_Entry_state__EA_Main_running(context);
+        break;
+      
+      case __EA_INIT40:
+        Pacemaker_region__EA_Entry_state__EA_Init(context);
+                break;
+      
+      case __EA_DONE41:
+        Pacemaker_region__EA_Entry_state__EA_Done(context);
+                break;
+      
+      case __EA_C:
+        Pacemaker_region__EA_Entry_state__EA_C(context);
+                break;
+      
+      case __EA_C1:
+        Pacemaker_region__EA_Entry_state__EA_C1(context);
+                break;
+      
+      case __EA_C2:
+        Pacemaker_region__EA_Entry_state__EA_C2(context);
+                break;
+      
+      case __EA_C3:
+        Pacemaker_region__EA_Entry_state__EA_C3(context);
+                break;
+      
+      case __EA_C4:
+        Pacemaker_region__EA_Entry_state__EA_C4(context);
+                break;
+      
+      case __EA_C5:
+        Pacemaker_region__EA_Entry_state__EA_C5(context);
+                break;
+      
+      case __EA_C6:
+        Pacemaker_region__EA_Entry_state__EA_C6(context);
+                break;
+      
+      case __EA_C7:
+        Pacemaker_region__EA_Entry_state__EA_C7(context);
+                break;
+      
+      case __EA_C8:
+        Pacemaker_region__EA_Entry_state__EA_C8(context);
+                break;
+      
+      case __EA_C9:
+        Pacemaker_region__EA_Entry_state__EA_C9(context);
+                break;
+      
+      case __EA_C10:
+        Pacemaker_region__EA_Entry_state__EA_C10(context);
+                break;
+      
+    }
+  }
+}
+
+static inline void Pacemaker(TickData *context) {
+
+  if (context->Pacemaker_region__EA_Entry.threadStatus != TERMINATED) {
+    context->Pacemaker_region__EA_Entry.threadStatus = RUNNING;
+  }
+  
+
+  Pacemaker_region__EA_Entry(&context->Pacemaker_region__EA_Entry);
+
+
+  context->Pacemaker_region__EA_Entry.delayedEnabled = 1;
+  context->threadStatus = READY;
+
+}
+
+void reset(TickData *context) {
+  context->Pacemaker_region__EA_Entry.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_During.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During0.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_region_During1.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_ACtrl.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForAS_region__EA_Entry2_state__EA_Main_region_During.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_ACtrl1.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateInAtriumRefractoryPeriod_region__EA_Entry3_state__EA_Main_region_During.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_ACtrl2.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During2.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionController_stateWaitForVS_region__EA_Entry4_state__EA_Main_region_During3.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateContinue_Timer_region__EA_Entry.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_ACtrl3.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionAVI_Timer_stateStop_Timer_region__EA_Entry5_state__EA_Main_region_During.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateContinue_Timer_region__EA_Entry.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_ACtrl4.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.Pacemaker_region__EA_Entry_state__EA_Main_region_main.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6.Pacemaker_region__EA_Entry_state__EA_Main_region_main_state_main_region__EA_Entry1_state__EA_Main_regionMain_state_implicit_regionTimers_state_implicit_regionVentricularEvents_Timer_stateStop_Timer_region__EA_Entry6_state__EA_Main_region_During.iface = &(context->iface);
+  context->Pacemaker_region__EA_Entry.activeState = __EA_INIT40;
+  context->Pacemaker_region__EA_Entry.threadStatus = READY;
+  
+  context->threadStatus = READY;
+  context->delayedEnabled = 0;
+}
+
+void tick(TickData *context) {
+  if (context->threadStatus == TERMINATED) return;
+  
+  Pacemaker(context);
+  context->delayedEnabled = 1;
+}
+

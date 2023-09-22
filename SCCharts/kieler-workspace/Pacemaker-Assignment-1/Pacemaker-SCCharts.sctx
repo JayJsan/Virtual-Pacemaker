@@ -1,39 +1,95 @@
 // Get timing.h
 #hostcode-c "#include \"timing.h\""
 #hostcode-c "#include <stdio.h>"
-
+@ClocksUseSD
 scchart Pacemaker {
   // Get timing parameters from timing.h
-  host "int" AVI_Constraint = `AVI_VALUE`
-  host "int" AEI_Constraint = `AEI_VALUE`
-  host "int" PVARP_Constraint = `PVARP_VALUE`
-  host "int" VRP_Constraint = `VRP_VALUE`
-  host "int" LRI_Constraint = `LRI_VALUE`
-  host "int" URI_Constraint = `URI_VALUE`
-  
-  clock x
-  
-  
-  
-  
-  
+  host "int" AVI = `AVI_VALUE`
+  host "int" AEI = `AEI_VALUE`
+  host "int" PVARP = `PVARP_VALUE`
+  host "int" VRP = `VRP_VALUE`
+  host "int" LRI = `LRI_VALUE`
+  host "int" URI = `URI_VALUE`
   
   // === INPUTS === 
   // AS = Atrial Sense
   // VS = Ventricle Sense
   input signal AS,VS
     
-  
-    
   // === OUTPUTS ===
   // AP = Atrial Pace
   // VP = Ventricle Pace
   output signal AP,VP
-  
   output signal AR,VR
   
   
-  
+  /*
+  region Main {
+    clock AVI_Clock = 0
+    clock VEvents_Clock = 0 // Since PVARP, VRP, AEI, LRI, and URI all start at an ventricular event
+    bool AVI_Stop = true
+    bool VEvents_Stop = true
+    
+    region Controller {
+      initial state WaitForAS
+      if AS go to AS_Sensed
+      if VEvents_Clock >= AEI go to AS_NotSensed
+            
+      state InAtriumRefractoryPeriod
+      if AS && VEvents_Clock < PVARP do AR go to InAtriumRefractoryPeriod
+      if VS && VEvents_Clock < VRP do VR go to InAtriumRefractoryPeriod
+      if VEvents_Clock >= PVARP go to WaitForAS
+      if VEvents_Stop = true go to WaitForAS
+      
+      connector state AS_Sensed
+      immediate do AVI_Clock = 0; AVI_Stop = false; go to WaitForVS 
+      // If AS, restart AVI Timer
+      
+      connector state AS_NotSensed
+      immediate do AP; AVI_Clock = 0; AVI_Stop = false; go to WaitForVS
+
+      state WaitForVS
+      if VS go to VS_Sensed
+      if VEvents_Clock >= URI && VEvents_Clock >= AVI go to VS_NotSensed // If we are past AVI and above URI then pace
+      if VEvents_Clock >= LRI go to VS_NotSensed // If we are past Lower Rate Interval then pace
+      
+      connector state VS_Sensed
+      immediate do AVI_Stop = true; VEvents_Clock = 0; VEvents_Clock = true go to InAtriumRefractoryPeriod 
+      // If VS, Stop AVI Timer, Restart VEvents_Clock and go to Refractory Period
+      
+      connector state VS_NotSensed
+      immediate do VP; AVI_Stop = true; VEvents_Clock = 0; VEvents_Clock = true go to InAtriumRefractoryPeriod
+      
+    }
+      
+      region Timers {
+        region AVI_Timer {
+          initial state Continue_Timer {
+            entry do AVI_Clock = 0
+          }
+          if AVI_Stop go to Stop_Timer
+          
+          state Stop_Timer {
+            during do AVI_Clock = 0
+          }
+          if !AVI_Stop go to Continue_Timer
+        }
+
+        region VentricularEvents_Timer {
+          initial state Continue_Timer {
+            entry do VEvents_Clock = 0
+          }
+          if VEvents_Stop go to Stop_Timer
+          
+          state Stop_Timer {
+            during do VEvents_Clock = 0
+          }
+          if !VEvents_Stop go to Continue_Timer
+        }
+      }
+    }
+  }
+   */
   
     // === PACING METHODS ===
     // TP = Triggered Pace // Pacing is only performed when an EVENT IS NOT DETECTED
@@ -63,6 +119,9 @@ scchart Pacemaker {
      * LRI - SLOWEST RATE heart operates. Time between V events
      * URI - FASTEST RATE heart operates. Time between V events
      */
+     
+ 
+     
     initial state makePace {
       // Checks current time
       region AVI{
@@ -119,4 +178,5 @@ scchart Pacemaker {
         if c = AVI_VALUE go to
       }
     }
+    
   }
