@@ -1,6 +1,6 @@
 // Get timing.h
+#resource "timing.h"
 #hostcode-c "#include \"timing.h\""
-#hostcode-c "#include <stdio.h>"
 @ClocksUseSD
 scchart Pacemaker {
   // Get timing parameters from timing.h
@@ -20,164 +20,33 @@ scchart Pacemaker {
   // AP = Atrial Pace
   // VP = Ventricle Pace
   output signal AP,VP
-  output signal AR,VR
   
-  clock AVI_Clock = 0
-  clock VEvents_Clock = 0 // Since PVARP, VRP, AEI, LRI, and URI all start at an ventricular event
+  clock VRP_Clock = 0
+  clock AEI_Clock = 0
+  clock LRI_Clock = 0
+  clock URI_Clock = 0
   
-  region Main {
-
-    bool AVI_Stop = true
-    bool VEvents_Stop = true
+  region {
+    clock PVARP_Clock
     
-    region Controller {
-      initial state WaitForAS
-      if AS go to AS_Sensed
-      if VEvents_Clock >= AEI go to AS_NotSensed
-            
-      state InAtriumRefractoryPeriod
-      if AS && (PVARP > VEvents_Clock) do AR go to InAtriumRefractoryPeriod
-      if VS && (VRP > VEvents_Clock) do VR go to InAtriumRefractoryPeriod
-      if VEvents_Clock >= PVARP go to WaitForAS
-      if VEvents_Stop == true go to WaitForAS
-      
-      connector state AS_Sensed
-      immediate do AVI_Clock = 0; AVI_Stop = false go to WaitForVS 
-      // If AS, restart AVI Timer
-      
-      connector state AS_NotSensed
-      immediate do AP; AVI_Clock = 0; AVI_Stop = false go to WaitForVS
-
-      state WaitForVS
-      if VS go to VS_Sensed
-      if VEvents_Clock >= URI && VEvents_Clock >= AVI go to VS_NotSensed // If we are past AVI and above URI then pace
-      if VEvents_Clock >= LRI go to VS_NotSensed // If we are past Lower Rate Interval then pace
-      
-      connector state VS_Sensed
-      immediate do AVI_Stop = true; VEvents_Clock = 0; VEvents_Clock = true go to InAtriumRefractoryPeriod 
-      // If VS, Stop AVI Timer, Restart VEvents_Clock and go to Refractory Period
-      
-      connector state VS_NotSensed
-      immediate do VP; AVI_Stop = true; VEvents_Clock = 0; VEvents_Clock = true go to InAtriumRefractoryPeriod
-      
-    }
-      
-      region Timers {
-        region AVI_Timer {
-          initial state Continue_Timer {
-            entry do AVI_Clock = 0
-          }
-          if AVI_Stop go to Stop_Timer
-          
-          state Stop_Timer {
-            during do AVI_Clock = 0
-          }
-          if !AVI_Stop go to Continue_Timer
-        }
-
-        region VentricularEvents_Timer {
-          initial state Continue_Timer {
-            entry do VEvents_Clock = 0
-          }
-          if VEvents_Stop go to Stop_Timer
-          
-          state Stop_Timer {
-            during do VEvents_Clock = 0
-          }
-          if !VEvents_Stop go to Continue_Timer
-        }
+    state ASense
+    if AS == 1 && PVARP_Clock >= PVARP go to VSense
+    if AS == 0 && AEI_Clock >= AEI do AP go to VSense
+    if AS == 1 go to ASense
+    
+    initial state VSense {
+        clock AVI_Clock = 0
+      initial state waitForVSense {
+        entry do AVI_Clock = 0
       }
+      if VS == 1 && VRP_Clock >= VRP go to waitForVSense
+      if VS == 0 && AVI_Clock >= AVI && URI_Clock >= URI do VP go to RestartVTimers
+      if VS == 0 && LRI_Clock >= LRI do VP go to RestartVTimers
+      
+      final state RestartVTimers {
+        entry do PVARP_Clock = 0; VRP_Clock = 0; AEI_Clock = 0; LRI_Clock = 0; URI_Clock = 0
+      }      
     }
+    join to ASense
   }
-   
-  
-    // === PACING METHODS ===
-    // TP = Triggered Pace // Pacing is only performed when an EVENT IS NOT DETECTED
-    // IP = Inhibited Pace // Pacing is performed ALL the time UNLESS an event is NOT DETECTED
-    // DP = Dual Pace // use multiple timers and conditions that utilise 
-                      // a combination of each of these methods for overall function
-    
-    // === BEHAVIOUR ===
-    /* If AS is sensed then..
-     * 
-     * 
-     * IF VS is sensed then...
-     * 
-     * 
-     */
-     // Reset AVI when VS received
-     
-     // Reset AEI when AS received
-     
-     // Reset LRI when VP occurs
-    
-    // === DDD Mode Timings ===
-    /* AVI - MAX time between A event and V event
-     * PVARP - time where A events are IGNORED and sends AR instead. (Occurs AFTER a V event)
-     * VRP - time where V events are IGNORED and sends VR instead. (Occurs AFTER a V event)
-     * AEI - MAX time between V event and A event
-     * LRI - SLOWEST RATE heart operates. Time between V events
-     * URI - FASTEST RATE heart operates. Time between V events
-     */
-     
- 
-     /*
-    initial state makePace {
-      // Checks current time
-      region AVI{
-        // When VS sensed, RESET AEI
-        initial state AVI_Sense
-        if  VS go to 
-        // When at maximum time, 
-        state AVI_Max
-        if c >= AVI_VALUE go to
-      }
-      region PVARP{
-        x = 0
-        // When VS sensed, RESET AEI
-        initial state AVI_Sense
-        if  VS go to 
-        // When at maximum time, 
-        state AVI_Max
-        if c = AVI_VALUE go to
-      }
-      region VRP{
-        x = 0
-        // When VS sensed, RESET AEI
-        initial state AVI_Sense
-        if  VS go to 
-        // When at maximum time, 
-        state AVI_Max
-        if c = AVI_VALUE go to
-      }
-      region AEI{
-        x = 0
-        // When VS sensed, RESET AEI
-        initial state AVI_Sense
-        if  VS go to 
-        // When at maximum time, 
-        state AVI_Max
-        if c = AVI_VALUE go to
-      }
-      region LRI{
-        x = 0
-        // When VS sensed, RESET AEI
-        initial state AVI_Sense
-        if  VS go to 
-        // When at maximum time, 
-        state AVI_Max
-        if c = AVI_VALUE go to
-      }
-      region URI{
-        x = 0
-        // When VS sensed, RESET AEI
-        initial state AVI_Sense
-        if  VS go to 
-        // When at maximum time, 
-        state AVI_Max
-        if c = AVI_VALUE go to
-      }
-    }
-  }
-      */
- 
+}
