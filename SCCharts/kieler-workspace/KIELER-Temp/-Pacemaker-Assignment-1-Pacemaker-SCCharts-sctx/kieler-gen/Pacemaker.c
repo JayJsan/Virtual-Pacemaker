@@ -314,7 +314,7 @@ void reset(TickData* d) {
   d->AEI_Clock = 0;
   d->LRI_Clock = 0;
   d->URI_Clock = 0;
-  d->_region0_null_PVARP_Clock = 0.0;
+  d->_region0_null_PVARP_Clock = 0;
   d->deltaT = 0.0;
   d->sleepT = 0.0;
   d->_taken_transitions[0] = 0;
