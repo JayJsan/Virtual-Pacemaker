@@ -29,24 +29,30 @@ scchart Pacemaker {
   region {
     clock PVARP_Clock = 0
     
+    state WaitForPVARP
+    if PVARP_Clock >= PVARP go to ASense
+    
     state ASense
-    if AS == 1 && PVARP_Clock >= PVARP go to VSense
     if AS == 0 && AEI_Clock >= AEI do AP go to VSense
-    if AS == 1 go to ASense
+    if AS == 1 go to VSense
     
     initial state VSense {
         clock AVI_Clock = 0
-      initial state waitForVSense {
+        
+      initial state WaitForURI {
         entry do AVI_Clock = 0
       }
-      if VS == 0 && AVI_Clock >= AVI && URI_Clock >= URI do VP go to RestartVTimers
-      if VS == 1 && VRP_Clock >= VRP go to waitForVSense
+      if URI_Clock >= URI go to WaitForVSense
+        
+      state WaitForVSense 
+      if VS == 0 && AVI_Clock >= AVI do VP go to RestartVTimers
+      if VS == 1 && VRP_Clock >= VRP go to WaitForVSense
       if VS == 0 && LRI_Clock >= LRI do VP go to RestartVTimers
       
       final state RestartVTimers {
         entry do PVARP_Clock = 0; VRP_Clock = 0; AEI_Clock = 0; LRI_Clock = 0; URI_Clock = 0
       }      
     }
-    join to ASense
+    join to WaitForPVARP
   }
 }
