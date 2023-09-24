@@ -30,9 +30,9 @@ scchart Pacemaker {
     clock PVARP_Clock = 0
     
     state WaitForPVARP
-    if PVARP_Clock >= PVARP go to ASense
+    if PVARP_Clock >= PVARP go to WaitForASense
     
-    state ASense
+    state WaitForASense
     if AS == 0 && AEI_Clock >= AEI do AP go to VSense
     if AS == 1 go to VSense
     
@@ -43,10 +43,11 @@ scchart Pacemaker {
         entry do AVI_Clock = 0
       }
       if URI_Clock >= URI go to WaitForVSense
+      if VS == 1 && VRP_Clock >= VRP go to RestartVTimers
         
       state WaitForVSense 
       if VS == 0 && AVI_Clock >= AVI do VP go to RestartVTimers
-      if VS == 1 && VRP_Clock >= VRP go to WaitForVSense
+      if VS == 1 && VRP_Clock >= VRP go to RestartVTimers
       if VS == 0 && LRI_Clock >= LRI do VP go to RestartVTimers
       
       final state RestartVTimers {
