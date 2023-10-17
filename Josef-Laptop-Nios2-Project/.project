@@ -37,16 +37,4 @@
 		<nature>com.altera.sbtgui.project.SBTGUIAppNature</nature>
 		<nature>com.altera.sbtgui.project.SBTGUIManagedNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>Buttons.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/C_Code/Buttons.c</locationURI>
-		</link>
-		<link>
-			<name>timer_irq.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/C_Code/timer_irq.c</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

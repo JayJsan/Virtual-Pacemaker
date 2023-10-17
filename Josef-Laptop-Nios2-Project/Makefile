@@ -142,7 +142,9 @@ ACDS_VERSION := 18.1
 ELF := pacemaker_c_implementation.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS := hello_world.c
+C_SRCS += uart_test.c
+C_SRCS += buttons_test.c
+C_SRCS += main.c
 CXX_SRCS :=
 ASM_SRCS :=
 
