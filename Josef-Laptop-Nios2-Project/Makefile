@@ -145,6 +145,7 @@ ELF := pacemaker_c_implementation.elf
 C_SRCS += uart_test.c
 C_SRCS += buttons_test.c
 C_SRCS += main.c
+C_SRCS += switches.c
 CXX_SRCS :=
 ASM_SRCS :=
 

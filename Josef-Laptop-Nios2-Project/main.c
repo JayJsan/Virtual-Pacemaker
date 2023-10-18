@@ -21,31 +21,95 @@
 #include <sys/alt_irq.h> // Used to register interrupts
 #include <alt_types.h> // for
 #include <string.h>
+#include <time.h>
+#include <stdbool.h>
 
-void uart_interrupts_function(void* context, alt_u32 id)
+#define PULSE_MODE_SWITCH 0
+#define IMPLEMENTAITON_MODE_SWITCH 1
+#define KEY0 0
+#define KEY1 1
+
+bool button_mode = false;
+
+void buttons_interrupts_function(void* context, alt_u32 id)
 {
-	//char* temp = (char*)context;
-	char temp;
-	//(*temp) = IORD_ALTERA_AVALON_UART_RXDATA(UART_BASE);
-	temp = IORD_ALTERA_AVALON_UART_RXDATA(UART_BASE);
-	printf("UART read: %c\n", temp);
+	int* temp_button_value = (int*) context; // Cast the context before using it
+	(*temp_button_value) = IORD_ALTERA_AVALON_PIO_EDGE_CAP(KEYS_BASE);
 
+	// clear the edge capture register
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEYS_BASE, 0);
+
+	// If we are NOT in button mode, we exit early.
+	if (!button_mode) {
+		return;
+	}
+
+	if ((*temp_button_value & (1 << KEY0))) {
+		printf("KEY0 : ATRIAL EVENT!\n");
+	}
+
+	if ((*temp_button_value & (1 << KEY1))) {
+		printf("KEY1 : VENTRICULAR EVENT!\n");
+	}
+
+	//printf("button pressed: %i\n", *temp_button_value); DEBUGGING PURPOSES
 }
 
 
 int main(void)
 {
 	printf("Initialised.\n");
-	char testChar = '0';
-	void* context_to_be_passed = (void*) &testChar; // Cast before passing context to isr
 
-	// Initialise interrupt capability for uart_RX
-	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(UART_BASE, 0x0080);
+	unsigned int switch_value = 0;
+	int button_value = 1;
+	void* button_context = (void*) &button_value; // Cast before passing context to isr
 
-	//
-	alt_irq_register(UART_IRQ, NULL, uart_interrupts_function);
+	//========= 	  INTERRUPTS  	   =========
 
-	//
-	while(1);
+	// Clear edge capture register
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEYS_BASE, 0);
+
+	// Enable interrupts for all buttons
+	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(KEYS_BASE, 0x7);
+
+	// Register the isr
+	alt_irq_register(KEYS_IRQ, button_context, buttons_interrupts_function);
+
+	//========= 	  INTERRUPTS  	   =========
+
+
+
+	printf("Entering Loop.\n");
+	while(1) {
+		switch_value = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);
+
+		//printf("Switch Value: %d\n", switch_value);
+
+
+		// ========= 	  PULSE MODES 	  =========
+		if (switch_value & (1 << PULSE_MODE_SWITCH)) {
+			// SW0 is Active
+			button_mode = true;
+			//printf("SW0 On.\n");
+		} else if (!(switch_value & (1 << PULSE_MODE_SWITCH))) {
+			// SW0 is Active
+			//printf("SW0 Off.\n");
+			button_mode = false;
+		}
+		// ========= 	  PULSE MODES 	  =========
+
+		// ========= IMPLEMENTATION MODES =========
+		if (switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH)) {
+			// SW1 is Active
+			printf("SW1 On\n");
+		} else if (!(switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH))) {
+			// SW0 is Active
+			//printf("SW1 Off.\n");
+		}
+		// ========= IMPLEMENTATION MODES =========
+
+		//usleep(1000000); // FOR DEBUGGING -- DELAYING BY 1 SECOND -- MAKE SURE TO REMOVE LATER
+	}
+	printf("Exiting Loop.\n");
 	return 0;
 }
