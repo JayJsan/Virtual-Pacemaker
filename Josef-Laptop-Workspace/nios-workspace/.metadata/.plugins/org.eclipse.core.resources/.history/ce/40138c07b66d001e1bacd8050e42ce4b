@@ -248,13 +248,6 @@ int main(void)
 			ventricular_event = false;
 			is_paced = false;
 		}
-		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
-		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
-
-		// IMPLEMENTATION
-
-
-
 		// PACE LEDS == PACE LEDS == PACE LEDS == PACE LEDS ==
 		// PACE LEDS == PACE LEDS == PACE LEDS == PACE LEDS ==
 		if (led_pace_atrial_event) {
