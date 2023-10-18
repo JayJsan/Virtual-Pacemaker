@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.altera.sbtgui.launch.modelsim.Nios2ModelsimLaunchConfiguration">
+<stringAttribute key="elfFile" value="C:\Projects\University\303-Assignment\Josef-Laptop-Nios2-Project\pacemaker_c_implementation.elf"/>
+<stringAttribute key="modelSimPath" value="C:\intelFPGA_lite\18.1\modelsim_ase\win32aloem"/>
+<stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_ID" value="com.altera.debug.cdi.gdb.plugin.Nios2GdbCdiDebugger"/>
+<stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_START_MODE" value="run"/>
+<booleanAttribute key="org.eclipse.cdt.launch.DEBUGGER_STOP_AT_MAIN" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="pacemaker_c_implementation.elf"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="pacemaker_c_implementation"/>
+<stringAttribute key="spdPath" value="c:\Projects\University\303-Assignment\Lab1\Lab-1\nios2_system_tb.spd"/>
+</launchConfiguration>
