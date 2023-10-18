@@ -25,6 +25,14 @@
 #include <stdbool.h>
 #include <sys/alt_alarm.h> // timers
 
+// Timeout values expected in MILLISECONDS
+#define AVI_VALUE 300
+#define AEI_VALUE 800
+#define PVARP_VALUE 50
+#define VRP_VALUE 150
+#define LRI_VALUE 950
+#define URI_VALUE 900
+
 #define PULSE_MODE_SWITCH 0
 #define IMPLEMENTAITON_MODE_SWITCH 1
 
@@ -158,6 +166,17 @@ void uart_read_isr_function(void* context, alt_u32 id)
 	//printf("UART read: %c\n", temp);
 }
 
+alt_u32 a_events_timer_isr_function(void* context) {
+	int *a_timer_count =(int*) context;
+	(*a_timer_count)++;
+	return 1; // return 1 millisecond
+}
+
+alt_u32 v_events_timer_isr_function(void* context) {
+	int *v_timer_count =(int*) context;
+	(*v_timer_count)++;
+	return 1; // return 1 millisecond
+}
 
 int main(void)
 {
@@ -194,6 +213,18 @@ int main(void)
 
 	alt_alarm v_sense_led_timer;
 	alt_alarm_start(&v_sense_led_timer, LED_ON_MILLISECONDS, v_sense_led_timer_isr_function, NULL);
+
+	alt_alarm a_events_timer;
+	int a_timer_count = 0;
+	void *a_events_timer_context = (void*) &a_timer_count;
+	//alt_alarm_start(&a_events_timer, 1, a_events_timer_isr_function, a_events_timer_context);
+
+	alt_alarm v_events_timer;
+	int v_timer_count = 0;
+	void *v_events_timer_context = (void*) &v_timer_count;
+	//alt_alarm_start(&v_events_timer, 1, v_events_timer_isr_function, v_events_timer_context);
+
+
 	//========= 	    TIMERS  	   =========
 	printf("Timers Initialised.\n");
 
@@ -232,7 +263,17 @@ int main(void)
 				led_sense_atrial_event = true;
 			}
 
-			// do stuff
+			// If we are in C_Mode, restart timer
+			if (implementation_mode == C_MODE) {
+				a_timer_count = 0;
+				alt_alarm_stop(&a_events_timer);
+				alt_alarm_start(&a_events_timer, 1, a_events_timer_isr_function, a_events_timer_context);
+			} else if (implementation_mode == SCCHARTS_MODE) {
+				SCCHARTS_Mode_Pacemaker();
+			}
+
+
+
 			atrial_event = false;
 			is_paced = false;
 		}
@@ -252,7 +293,15 @@ int main(void)
 		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
 
 		// IMPLEMENTATION
+		// IMPLEMENTATION
 
+		if (implementation_mode == C_MODE) {
+			C_Mode_Pacemaker(a_timer_count, v_timer_count);
+		} else if (implementation_mode == SCCHARTS_MODE) {
+			SCCHARTS_Mode_Pacemaker();
+		}
+		// IMPLEMENTATION
+		// IMPLEMENTATION
 
 
 		// PACE LEDS == PACE LEDS == PACE LEDS == PACE LEDS ==
@@ -330,6 +379,7 @@ int main(void)
 
 		clear_pace_led_events();
 		clear_sense_led_events();
+		//clear_heart_flags();
 	}
 	printf("Exiting Loop.\n");
 	return 0;
@@ -361,6 +411,7 @@ void send_ventricular_event(bool isThisEventPaced) {
 void clear_heart_flags() {
 	atrial_event = false;
 	ventricular_event = false;
+	is_paced = false;
 }
 
 void clear_pace_led_events() {
@@ -413,4 +464,35 @@ void clear_sense_led_events() {
 
 		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
 	}
+}
+
+
+
+void C_Mode_Reset_Atrial_Timer(alt_alarm* a_alarm_timer, void* a_timer_context, int* a_timer_count) {
+
+	printf("Atrial Timer Started/Restarted!\n");
+	// Start/Restart Atrial events timer
+
+	alt_alarm_stop(&a_alarm_timer);
+	a_timer_count = 0;
+	alt_alarm_start(&a_alarm_timer, 1, a_events_timer_isr_function, &a_timer_context);
+	printf("Atrial Timer Started/Restarted!\n");
+
+
+
+}
+
+void C_Mode_Reset_Ventricular_Timer(alt_alarm* v_alarm_timer, void* v_timer_context, int* v_timer_count) {
+
+}
+void C_Mode_Pacemaker(int a_timer_count, int v_timer_count) {
+	// AEvents Logic
+	//int a_count = (int)a_timer_count;
+	if (a_timer_count >= AVI_VALUE) {
+		//printf("bruh moment\n");
+	}
+}
+
+void SCCHARTS_Mode_Pacemaker() {
+
 }
