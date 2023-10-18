@@ -1,0 +1,196 @@
+/*
+ * "Hello World" example.
+ *
+ * This example prints 'Hello from Nios II' to the STDOUT stream. It runs on
+ * the Nios II 'standard', 'full_featured', 'fast', and 'low_cost' example
+ * designs. It runs with or without the MicroC/OS-II RTOS and requires a STDOUT
+ * device in your system's hardware.
+ * The memory footprint of this hosted application is ~69 kbytes by default
+ * using the standard reference design.
+ *
+ * For a reduced footprint version of this template, and an explanation of how
+ * to reduce the memory footprint for a given application, see the
+ * "small_hello_world" template.
+ *
+ */
+// Remember to build the project if includes aren't working
+#include <system.h> // Used for referencing symbolic names
+#include <altera_avalon_pio_regs.h> // Used for PIO functions
+#include <altera_avalon_uart_regs.h> // Used for UART functions
+#include <stdio.h>
+#include <sys/alt_irq.h> // Used to register interrupts
+#include <alt_types.h> // for
+#include <string.h>
+#include <time.h>
+#include <stdbool.h>
+#include <sys/alt_alarm.h> // timers
+
+#define PULSE_MODE_SWITCH 0
+#define IMPLEMENTAITON_MODE_SWITCH 1
+
+#define UART_MODE 0
+#define BUTTON_MODE 1
+
+#define C_MODE 0
+#define SCCHARTS_MODE 1
+
+#define KEY0 0
+#define KEY1 1
+
+bool pulse_mode = UART_MODE;
+bool implementation_mode = C_MODE;
+
+bool atrial_event = false;
+bool ventricular_event = false;
+
+bool led_atrial_event = false;
+bool led_ventricular_event = false;
+
+void buttons_interrupts_function(void* context, alt_u32 id)
+{
+	int* temp_button_value = (int*) context; // Cast the context before using it
+	(*temp_button_value) = IORD_ALTERA_AVALON_PIO_EDGE_CAP(KEYS_BASE);
+
+	// clear the edge capture register
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEYS_BASE, 0);
+
+	// If we are NOT in button mode, we exit early.
+	if (pulse_mode == UART_MODE) {
+		return;
+	}
+
+	if ((*temp_button_value & (1 << KEY0))) {
+		//printf("KEY0 : ATRIAL EVENT!\n");
+		send_atrial_event();
+	}
+
+	if ((*temp_button_value & (1 << KEY1))) {
+		//printf("KEY1 : VENTRICULAR EVENT!\n");
+		send_ventricular_event();
+	}
+
+	if ((*temp_button_value & (1 << 2))) {
+		// reset leds -- DEBUGGING / CLEAR EVENTS
+		atrial_event = false;
+		ventricular_event = false;
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0);
+	}
+
+	//printf("button pressed: %i\n", *temp_button_value); DEBUGGING PURPOSES
+}
+
+alt_u32 led_timer_isr_function(void* context) {
+
+	IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0);
+	led_atrial_event = 0;
+	led_ventricular_event = 0;
+
+	return 1000;
+}
+
+int main(void)
+{
+	printf("Initialised.\n");
+
+	unsigned int switch_value = 0;
+	int button_value = 1;
+	void* button_context = (void*) &button_value; // Cast before passing context to isr
+
+	//========= 	  INTERRUPTS  	   =========
+
+	// Clear edge capture register
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEYS_BASE, 0);
+
+	// Enable interrupts for all buttons
+	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(KEYS_BASE, 0x7);
+
+	// Register the isr
+	alt_irq_register(KEYS_IRQ, button_context, buttons_interrupts_function);
+
+	//========= 	  INTERRUPTS  	   =========
+	//========= 	    TIMERS  	   =========
+	alt_alarm led_timer;
+	int led_timer_count = 0;
+	void* led_timer_context = (void*)led_timer_count;
+	alt_alarm_start(&led_timer, 1000, led_timer_isr_function, led_timer_context);
+	//========= 	    TIMERS  	   =========
+
+	printf("Entering Loop.\n");
+	while(1) {
+		// Get switch state from switch peripheral (returns a binary)
+		switch_value = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);
+
+
+
+		// ========= 	  PULSE MODES 	  =========
+		if (switch_value & (1 << PULSE_MODE_SWITCH)) {
+			// SW0 is ON
+			pulse_mode = BUTTON_MODE;
+		} else if (!(switch_value & (1 << PULSE_MODE_SWITCH))) {
+			// SW0 is OFF
+			pulse_mode = UART_MODE;
+		}
+		// ========= 	  PULSE MODES 	  =========
+
+		// ========= IMPLEMENTATION MODES =========
+		if (switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH)) {
+			// SW1 is ON
+			implementation_mode = SCCHARTS_MODE;
+		} else if (!(switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH))) {
+			// SW1 is OFF
+			implementation_mode = C_MODE;
+		}
+		// ========= IMPLEMENTATION MODES =========
+
+
+		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
+		if (atrial_event) {
+			led_atrial_event = true;
+			atrial_event = 0;
+		}
+
+		if (ventricular_event) {
+			led_ventricular_event = true;
+		}
+
+
+		if (led_atrial_event) {
+			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
+			led_value = led_value |= (1<<0);
+			led_value = led_value |= (1<<1);
+
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
+			//usleep(1000000); // FOR DEBUGGING -- DELAYING BY 1 SECOND -- MAKE SURE TO REMOVE LATER
+		}
+
+		if (led_ventricular_event) {
+			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
+			led_value = led_value |= (1<<2);
+			led_value = led_value |= (1<<3);
+
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
+			//usleep(1000000); // FOR DEBUGGING -- DELAYING BY 1 SECOND -- MAKE SURE TO REMOVE LATER
+		}
+
+		// CLEAR LEDS AND FLAGS
+		if (!led_atrial_event || !led_ventricular_event) {
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0);
+		}
+	}
+	printf("Exiting Loop.\n");
+	return 0;
+}
+
+void send_atrial_event() {
+	atrial_event = true;
+}
+
+void send_ventricular_event() {
+	ventricular_event = true;
+}
+
+void clear_heart_flags() {
+	atrial_event = false;
+	ventricular_event = false;
+}
+
