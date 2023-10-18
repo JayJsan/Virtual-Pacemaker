@@ -394,7 +394,7 @@ void send_atrial_event(bool isThisEventPaced) {
 		is_paced = false;
 	}
 	atrial_event = true;
-	printf("Atrial Event Flagged!\n");
+	printf("Atrial Event Flagged!");
 }
 
 void send_ventricular_event(bool isThisEventPaced) {
@@ -406,7 +406,7 @@ void send_ventricular_event(bool isThisEventPaced) {
 		is_paced = false;
 	}
 	ventricular_event = true;
-	printf("Ventricular Event Flagged!\n");
+	printf("Ventricular Event Flagged!");
 }
 
 void clear_heart_flags() {
@@ -467,6 +467,25 @@ void clear_sense_led_events() {
 	}
 }
 
+
+
+void C_Mode_Reset_Atrial_Timer(alt_alarm* a_alarm_timer, void* a_timer_context, int* a_timer_count) {
+
+	printf("Atrial Timer Started/Restarted!\n");
+	// Start/Restart Atrial events timer
+
+	alt_alarm_stop(&a_alarm_timer);
+	a_timer_count = 0;
+	alt_alarm_start(&a_alarm_timer, 1, a_events_timer_isr_function, &a_timer_context);
+	printf("Atrial Timer Started/Restarted!\n");
+
+
+
+}
+
+void C_Mode_Reset_Ventricular_Timer(alt_alarm* v_alarm_timer, void* v_timer_context, int* v_timer_count) {
+
+}
 void C_Mode_Pacemaker(int a_timer_count, int v_timer_count) {
 	// AEvents Logic
 	//int a_count = (int)a_timer_count;
