@@ -394,7 +394,6 @@ void send_atrial_event(bool isThisEventPaced) {
 		is_paced = false;
 	}
 	atrial_event = true;
-	printf("Atrial Event Flagged!");
 }
 
 void send_ventricular_event(bool isThisEventPaced) {
@@ -406,7 +405,7 @@ void send_ventricular_event(bool isThisEventPaced) {
 		is_paced = false;
 	}
 	ventricular_event = true;
-	printf("Ventricular Event Flagged!");
+
 }
 
 void clear_heart_flags() {
@@ -492,8 +491,6 @@ void C_Mode_Pacemaker(int a_timer_count, int v_timer_count) {
 	if (a_timer_count >= AVI_VALUE) {
 		//printf("bruh moment\n");
 		printf("TIMER HIT!\n");
-		send_ventricular_event(true);
-		a_timer_count = 0;
 	}
 }
 

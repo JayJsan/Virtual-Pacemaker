@@ -492,7 +492,7 @@ void C_Mode_Pacemaker(int a_timer_count, int v_timer_count) {
 	if (a_timer_count >= AVI_VALUE) {
 		//printf("bruh moment\n");
 		printf("TIMER HIT!\n");
-		send_ventricular_event(true);
+		send_ventricular_event();
 		a_timer_count = 0;
 	}
 }
