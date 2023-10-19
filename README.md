@@ -27,3 +27,37 @@
 > ### **KEY0**
 >
 > #### - PRESS = RESTART MAIN LOOP
+
+## LEDS
+
+> ### **LEDG0 -> LEDG3**
+>
+> #### - VENTRICLE PACED
+>
+> #### - ALL LIT - C MODE
+>
+> #### - HALF LIT - SCCHARTS MODE
+
+> ### **LEDG4 -> LEDG7**
+>
+> #### - ATRIUM PACED
+>
+> #### - ALL LIT - C MODE
+>
+> #### - HALF LIT - SCCHARTS MODE
+
+> ### **LEDR0 -> LEDR8**
+>
+> #### - VENTRICLE SENSED (FROM UART)
+>
+> #### - ALL LIT - C MODE
+>
+> #### - HALF LIT - SCCHARTS MODE
+
+> ### **LEDR9 -> LEDR17**
+>
+> #### - ATRIUM SENSED (FROM UART)
+>
+> #### - ALL LIT - C MODE
+>
+> #### - HALF LIT - SCCHARTS MODE

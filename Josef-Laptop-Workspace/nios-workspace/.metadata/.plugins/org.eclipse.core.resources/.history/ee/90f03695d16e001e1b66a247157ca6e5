@@ -81,6 +81,9 @@ bool v_pace_led_timer_already_started = false;
 bool a_sense_led_timer_already_started = false;
 bool v_sense_led_timer_already_started = false;
 
+int a_timer_count = 0;
+int v_timer_count = 0;
+
 void buttons_interrupts_function(void* context, alt_u32 id)
 {
 
@@ -238,12 +241,12 @@ int main(void)
 	alt_alarm_start(&system_timer, 1, system_timer_isr_function, system_timer_context);
 
 	alt_alarm a_events_timer;
-	int a_timer_count = 0;
+	//int a_timer_count = 0;
 	void *a_events_timer_context = (void*) &a_timer_count;
 	alt_alarm_start(&a_events_timer, 1, a_events_timer_isr_function, a_events_timer_context);
 
 	alt_alarm v_events_timer;
-	int v_timer_count = 0;
+	//int v_timer_count = 0;
 	void *v_events_timer_context = (void*) &v_timer_count;
 	alt_alarm_start(&v_events_timer, 1, v_events_timer_isr_function, v_events_timer_context);
 
@@ -293,6 +296,7 @@ int main(void)
 			if (implementation_mode == C_MODE) {
 				if (v_timer_count >= PVARP_VALUE) {
 					atrial_sense = true;
+					ventricular_sense = false;
 					a_timer_count = 0;
 				}
 			} else if (implementation_mode == SCCHARTS_MODE) {
@@ -315,7 +319,7 @@ int main(void)
 			}
 
 			//atrial_sense = true;
-			ventricular_sense = false;
+
 			a_is_paced = false;
 		}
 
@@ -326,12 +330,13 @@ int main(void)
 			// If we are in C_Mode, restart timer
 			if (implementation_mode == C_MODE) {
 				// Reset timer if v is sensed after VRP
-				if (v_timer_count >= VRP_VALUE && v_timer_count >= URI_VALUE) {
-					printf("RESET VEVENTS\n");
+				if (v_timer_count >= VRP_VALUE) {
 					ventricular_sense = true;
+					atrial_sense = false;
 					v_timer_count = 0;
-				} else if (v_timer_count <= URI_VALUE) {
-					ventricular_sense = false;
+				}
+				if (v_timer_count >= URI_VALUE) {
+					ventricular_sense = true;
 				}
 			} else if (implementation_mode == SCCHARTS_MODE) {
 				if (!v_is_paced) {
@@ -361,7 +366,7 @@ int main(void)
 
 
 			v_is_paced = false;
-			atrial_sense = false;
+
 		}
 		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
 		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
@@ -597,7 +602,7 @@ void C_Mode_Pacemaker(int a_timer_count, int v_timer_count) {
 	//int a_count = (int)a_timer_count;
 
 	// pace ventricular event if
-	if (v_timer_count >= AEI_VALUE) {
+	if (v_timer_count >= AEI_VALUE && !atrial_sense) {
 		// send atrial event
 		send_atrial_event(true);
 	}
@@ -606,12 +611,12 @@ void C_Mode_Pacemaker(int a_timer_count, int v_timer_count) {
 	if (v_timer_count >= URI_VALUE) {
 		// Ignore any ventricular events until VRP
 		// Pace ventricular if above AVI
-		if (a_timer_count >= AVI_VALUE) {
+		if (a_timer_count >= AVI_VALUE && !ventricular_sense) {
 			send_ventricular_event(true);
 		}
 
 		// Pace ventricular if LRI has been hit
-		if (v_timer_count >= LRI_VALUE) {
+		if (v_timer_count >= LRI_VALUE && !ventricular_sense) {
 			// Send Ventricular event
 			send_ventricular_event(true);
 		}

@@ -81,6 +81,9 @@ bool v_pace_led_timer_already_started = false;
 bool a_sense_led_timer_already_started = false;
 bool v_sense_led_timer_already_started = false;
 
+int a_timer_count = 0;
+int v_timer_count = 0;
+
 void buttons_interrupts_function(void* context, alt_u32 id)
 {
 
@@ -104,8 +107,13 @@ void buttons_interrupts_function(void* context, alt_u32 id)
 
 	if ((*temp_button_value & (1 << KEY0))) {
 		//printf("KEY1 : VENTRICULAR EVENT!\n");
-		send_ventricular_event(true);
-		printf("Ventricular Manually Paced!\n");
+		if (v_timer_count >= URI_VALUE) {
+			send_ventricular_event(true);
+			printf("Ventricular Manually Paced!\n");
+		} else {
+			printf("URI_VALUE not over!\n");
+		}
+
 	}
 
 	if ((*temp_button_value & (1 << 2))) {
@@ -238,12 +246,12 @@ int main(void)
 	alt_alarm_start(&system_timer, 1, system_timer_isr_function, system_timer_context);
 
 	alt_alarm a_events_timer;
-	int a_timer_count = 0;
+	//int a_timer_count = 0;
 	void *a_events_timer_context = (void*) &a_timer_count;
 	alt_alarm_start(&a_events_timer, 1, a_events_timer_isr_function, a_events_timer_context);
 
 	alt_alarm v_events_timer;
-	int v_timer_count = 0;
+	//int v_timer_count = 0;
 	void *v_events_timer_context = (void*) &v_timer_count;
 	alt_alarm_start(&v_events_timer, 1, v_events_timer_isr_function, v_events_timer_context);
 

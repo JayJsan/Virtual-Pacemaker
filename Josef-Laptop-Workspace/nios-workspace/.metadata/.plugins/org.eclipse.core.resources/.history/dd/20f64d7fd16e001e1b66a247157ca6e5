@@ -293,6 +293,7 @@ int main(void)
 			if (implementation_mode == C_MODE) {
 				if (v_timer_count >= PVARP_VALUE) {
 					atrial_sense = true;
+					ventricular_sense = false;
 					a_timer_count = 0;
 				}
 			} else if (implementation_mode == SCCHARTS_MODE) {
@@ -315,7 +316,7 @@ int main(void)
 			}
 
 			//atrial_sense = true;
-			ventricular_sense = false;
+
 			a_is_paced = false;
 		}
 
@@ -326,12 +327,13 @@ int main(void)
 			// If we are in C_Mode, restart timer
 			if (implementation_mode == C_MODE) {
 				// Reset timer if v is sensed after VRP
-				if (v_timer_count >= VRP_VALUE && v_timer_count >= URI_VALUE) {
-					printf("RESET VEVENTS\n");
+				if (v_timer_count >= VRP_VALUE) {
 					ventricular_sense = true;
+					atrial_sense = false;
 					v_timer_count = 0;
-				} else if (v_timer_count <= URI_VALUE) {
-					ventricular_sense = false;
+				}
+				if (v_timer_count >= URI_VALUE) {
+					ventricular_sense = true;
 				}
 			} else if (implementation_mode == SCCHARTS_MODE) {
 				if (!v_is_paced) {
@@ -361,7 +363,7 @@ int main(void)
 
 
 			v_is_paced = false;
-			atrial_sense = false;
+
 		}
 		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
 		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
