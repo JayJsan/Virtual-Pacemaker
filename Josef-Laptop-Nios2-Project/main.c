@@ -54,14 +54,20 @@
 #define LEDG6 6
 #define LEDG7 7
 
-#define LED_ON_MILLISECONDS 100
+#define LED_ON_MILLISECONDS 25
 
 bool pulse_mode = UART_MODE;
 bool implementation_mode = C_MODE;
 
 bool atrial_event = false;
+bool a_is_paced = false;
 bool ventricular_event = false;
-bool is_paced = false;
+bool v_is_paced = false;
+
+bool atrial_sense = false;
+bool ventricular_sense = false;
+bool atrial_sense_paced = false;
+bool ventricular_sense_paced = false;
 
 bool led_pace_atrial_event = false;
 bool led_pace_ventricular_event = false;
@@ -90,16 +96,16 @@ void buttons_interrupts_function(void* context, alt_u32 id)
 	}
 
 
-	if ((*temp_button_value & (1 << KEY0))) {
+	if ((*temp_button_value & (1 << KEY1))) {
 		//printf("KEY0 : ATRIAL EVENT!\n");
 		send_atrial_event(true);
-		printf("Atrium Paced!\n");
+		printf("Atrium Manually Paced!\n");
 	}
 
-	if ((*temp_button_value & (1 << KEY1))) {
+	if ((*temp_button_value & (1 << KEY0))) {
 		//printf("KEY1 : VENTRICULAR EVENT!\n");
 		send_ventricular_event(true);
-		printf("Ventricular Paced!\n");
+		printf("Ventricular Manually Paced!\n");
 	}
 
 	if ((*temp_button_value & (1 << 2))) {
@@ -148,11 +154,11 @@ void uart_read_isr_function(void* context, alt_u32 id)
 	if (pulse_mode == BUTTON_MODE) {
 
 		if (atrial_event) {
-			printf("Atrial Sent!\n");
+			printf("Atrial Transmitted to UART!\n");
 		}
 
 		if (ventricular_event) {
-			printf("Ventricular Sent!\n");
+			printf("Ventricular Transmitted to UART!\n");
 		}
 		return;
 	}
@@ -217,12 +223,12 @@ int main(void)
 	alt_alarm a_events_timer;
 	int a_timer_count = 0;
 	void *a_events_timer_context = (void*) &a_timer_count;
-	//alt_alarm_start(&a_events_timer, 1, a_events_timer_isr_function, a_events_timer_context);
+	alt_alarm_start(&a_events_timer, 1, a_events_timer_isr_function, a_events_timer_context);
 
 	alt_alarm v_events_timer;
 	int v_timer_count = 0;
 	void *v_events_timer_context = (void*) &v_timer_count;
-	//alt_alarm_start(&v_events_timer, 1, v_events_timer_isr_function, v_events_timer_context);
+	alt_alarm_start(&v_events_timer, 1, v_events_timer_isr_function, v_events_timer_context);
 
 
 	//========= 	    TIMERS  	   =========
@@ -257,37 +263,60 @@ int main(void)
 		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
 		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
 		if (atrial_event) {
-			if (is_paced) {
-				led_pace_atrial_event = true;
-			} else {
-				led_sense_atrial_event = true;
-			}
-
+			printf("\n");
+			atrial_event = false; // COULD BE A PROBLEM?
 			// If we are in C_Mode, restart timer
 			if (implementation_mode == C_MODE) {
-				a_timer_count = 0;
-				alt_alarm_stop(&a_events_timer);
-				alt_alarm_start(&a_events_timer, 1, a_events_timer_isr_function, a_events_timer_context);
+				if (v_timer_count >= PVARP_VALUE) {
+					atrial_sense = true;
+					a_timer_count = 0;
+				}
 			} else if (implementation_mode == SCCHARTS_MODE) {
 				SCCHARTS_Mode_Pacemaker();
 			}
 
+			if (a_is_paced) {
+				led_pace_atrial_event = true;
+				atrial_sense_paced = true;
+				printf("Atrial Sensed! - Paced!\n");
+			} else {
+				led_sense_atrial_event = true;
+				atrial_sense_paced = false;
+				printf("Atrial Sensed! - Not Paced\n");
+			}
 
-
-			atrial_event = false;
-			is_paced = false;
+			//atrial_sense = true;
+			ventricular_sense = false;
+			a_is_paced = false;
 		}
 
 		if (ventricular_event) {
-			if (is_paced) {
-				led_pace_ventricular_event = true;
-			} else {
-				led_sense_ventricular_event = true;
-			}
+			ventricular_event = false;
 
 			// do stuff
-			ventricular_event = false;
-			is_paced = false;
+			// If we are in C_Mode, restart timer
+			if (implementation_mode == C_MODE) {
+				// Reset timer if v is sensed after VRP
+				if (v_timer_count >= VRP_VALUE) {
+					ventricular_sense = true;
+					v_timer_count = 0;
+				}
+			} else if (implementation_mode == SCCHARTS_MODE) {
+				SCCHARTS_Mode_Pacemaker();
+			}
+
+			if (v_is_paced) {
+				led_pace_ventricular_event = true;
+				ventricular_sense_paced = true;
+				printf("Ventricle Sensed! -- Paced\n");
+			} else {
+				led_sense_ventricular_event = true;
+				ventricular_sense_paced = false;
+				printf("Ventricle Sensed! -- Not Paced\n");
+			}
+
+			v_is_paced = false;
+			atrial_sense = false;
 		}
 		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
 		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
@@ -296,10 +325,21 @@ int main(void)
 		// IMPLEMENTATION
 
 		if (implementation_mode == C_MODE) {
+			/*
+			if (v_timer_count >= LRI_VALUE) {
+				ventricular_sense = false;
+			}
+			*/
+
 			C_Mode_Pacemaker(a_timer_count, v_timer_count);
+			//atrial_sense_paced = false;
+			//ventricular_sense_paced = false;
+
 		} else if (implementation_mode == SCCHARTS_MODE) {
 			SCCHARTS_Mode_Pacemaker();
 		}
+
+
 		// IMPLEMENTATION
 		// IMPLEMENTATION
 
@@ -314,8 +354,9 @@ int main(void)
 			}
 			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
 
-			// SET ALL BITS UP FROM LEDG0 TO LEDG3
-			for (int i = LEDG0; i < LEDG3 + 1; i++) {
+
+			// SET ALL BITS UP FROM LEDG4 TO LEDG7
+			for (int i = LEDG4; i < LEDG7 + 1; i++) {
 				led_value = led_value |= (1<<i);
 			}
 
@@ -332,9 +373,10 @@ int main(void)
 			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
 
 			// SET ALL BITS UP FROM LEDG0 TO LEDG3
-			for (int i = LEDG4; i < LEDG7 + 1; i++) {
+			for (int i = LEDG0; i < LEDG3 + 1; i++) {
 				led_value = led_value |= (1<<i);
 			}
+
 
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
 
@@ -351,8 +393,9 @@ int main(void)
 			}
 			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
 
+
 			// SET ALL BITS UP FROM LEDG0 TO LEDG3
-			for (int i = 0; i < 9; i++) {
+			for (int i = 9; i < 18; i++) {
 				led_value = led_value |= (1<<i);
 			}
 
@@ -369,9 +412,10 @@ int main(void)
 			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
 
 			// SET ALL BITS UP FROM LEDG0 TO LEDG3
-			for (int i = 9; i < 18; i++) {
+			for (int i = 0; i < 9; i++) {
 				led_value = led_value |= (1<<i);
 			}
+
 
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
 
@@ -387,32 +431,33 @@ int main(void)
 
 void send_atrial_event(bool isThisEventPaced) {
 	if (isThisEventPaced) {
-		is_paced = true;
+		a_is_paced = true;
 		char atrial_char = 'A';
 		IOWR_ALTERA_AVALON_UART_TXDATA(UART_BASE, atrial_char);
 	} else {
-		is_paced = false;
+		a_is_paced = false;
 	}
 	atrial_event = true;
-	printf("Atrial Event Flagged!\n");
+	//printf("Atrial Event Flagged!\n");
 }
 
 void send_ventricular_event(bool isThisEventPaced) {
 	if (isThisEventPaced) {
-		is_paced = true;
+		v_is_paced = true;
 		char ventricular_char = 'V';
 		IOWR_ALTERA_AVALON_UART_TXDATA(UART_BASE, ventricular_char);
 	} else {
-		is_paced = false;
+		v_is_paced = false;
 	}
 	ventricular_event = true;
-	printf("Ventricular Event Flagged!\n");
+	//printf("Ventricular Event Flagged!\n");
 }
 
 void clear_heart_flags() {
 	atrial_event = false;
 	ventricular_event = false;
-	is_paced = false;
+	a_is_paced = false;
+	v_is_paced = false;
 }
 
 void clear_pace_led_events() {
@@ -420,10 +465,12 @@ void clear_pace_led_events() {
 		a_pace_led_timer_already_started = false;
 		int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
 
+
 		// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
-		for (int i = LEDG0; i < LEDG3 + 1; i++) {
+		for (int i = LEDG4; i < LEDG7 + 1; i++) {
 			led_value = led_value &= ~(1<<i);
 		}
+
 
 		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
 	}
@@ -433,10 +480,9 @@ void clear_pace_led_events() {
 		int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
 
 		// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
-		for (int i = LEDG4; i < LEDG7 + 1; i++) {
+		for (int i = LEDG0; i < LEDG3 + 1; i++) {
 			led_value = led_value &= ~(1<<i);
 		}
-
 		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
 	}
 }
@@ -447,7 +493,7 @@ void clear_sense_led_events() {
 		int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
 
 		// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
-		for (int i = 0; i < 9; i++) {
+		for (int i = 9; i < 18; i++) {
 			led_value = led_value &= ~(1<<i);
 		}
 
@@ -459,7 +505,7 @@ void clear_sense_led_events() {
 		int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
 
 		// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
-		for (int i = 9; i < 18; i++) {
+		for (int i = 0; i < 9; i++) {
 			led_value = led_value &= ~(1<<i);
 		}
 
@@ -470,12 +516,28 @@ void clear_sense_led_events() {
 void C_Mode_Pacemaker(int a_timer_count, int v_timer_count) {
 	// AEvents Logic
 	//int a_count = (int)a_timer_count;
-	if (a_timer_count >= AVI_VALUE) {
-		//printf("bruh moment\n");
-		//printf("TIMER HIT!\n");
-		//send_ventricular_event(true);
-		//a_timer_count = 0; // hey future me, this shit works, just implement the whole timing diagram shit
-		// - past you 3:27am
+
+	// pace ventricular event if
+	if (v_timer_count >= AEI_VALUE && !atrial_sense) {
+		// send atrial event
+		send_atrial_event(true);
+	}
+
+	// Do not pace ventricle until URI
+	if (v_timer_count >= URI_VALUE) {
+		// Ignore any ventricular events until VRP
+		// Pace ventricular if above AVI
+		if (a_timer_count >= AVI_VALUE && !ventricular_sense) {
+			send_ventricular_event(true);
+		}
+
+		// Pace ventricular if LRI has been hit
+		if (v_timer_count >= LRI_VALUE && !ventricular_sense) {
+			// Send Ventricular event
+			send_ventricular_event(true);
+		}
+
+
 	}
 }
 
