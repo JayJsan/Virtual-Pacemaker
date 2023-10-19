@@ -10,7 +10,8 @@ obj/default/main.o: main.c \
  c:\projects\university\303-assignment\pacemaker_c_implementation_bsp\hal\inc\alt_types.h \
  c:\projects\university\303-assignment\pacemaker_c_implementation_bsp\hal\inc\sys\alt_alarm.h \
  c:\projects\university\303-assignment\pacemaker_c_implementation_bsp\hal\inc\sys\alt_llist.h \
- c:\projects\university\303-assignment\pacemaker_c_implementation_bsp\hal\inc\priv\alt_alarm.h
+ c:\projects\university\303-assignment\pacemaker_c_implementation_bsp\hal\inc\priv\alt_alarm.h \
+ sccharts.h timing.h
 
 C:/Projects/University/303-Assignment/pacemaker_c_implementation_bsp/system.h:
 
@@ -35,3 +36,7 @@ c:\projects\university\303-assignment\pacemaker_c_implementation_bsp\hal\inc\sys
 c:\projects\university\303-assignment\pacemaker_c_implementation_bsp\hal\inc\sys\alt_llist.h:
 
 c:\projects\university\303-assignment\pacemaker_c_implementation_bsp\hal\inc\priv\alt_alarm.h:
+
+sccharts.h:
+
+timing.h:

@@ -24,7 +24,7 @@
 #include <time.h>
 #include <stdbool.h>
 #include <sys/alt_alarm.h> // timers
-
+#include "sccharts.h"
 // Timeout values expected in MILLISECONDS
 #define AVI_VALUE 300
 #define AEI_VALUE 800
@@ -184,6 +184,12 @@ alt_u32 v_events_timer_isr_function(void* context) {
 	return 1; // return 1 millisecond
 }
 
+alt_u32 system_timer_isr_function(void* context) {
+	int *system_timer_count = (int* ) context;
+	(*system_timer_count)++;
+	return 1; // return 1 millisecond
+}
+
 int main(void)
 {
 	printf("Starting.\n");
@@ -191,6 +197,12 @@ int main(void)
 	unsigned int switch_value = 0;
 	int button_value = 1;
 	void* button_context = (void*) &button_value; // Cast before passing context to isr
+
+	unsigned int system_time = 0;
+	unsigned int previous_system_time = 0;
+	TickData data;
+	reset(&data);
+
 	//========= 	  INTERRUPTS  	   =========
 
 	// Clear edge capture register
@@ -220,6 +232,11 @@ int main(void)
 	alt_alarm v_sense_led_timer;
 	alt_alarm_start(&v_sense_led_timer, LED_ON_MILLISECONDS, v_sense_led_timer_isr_function, NULL);
 
+	alt_alarm system_timer;
+	int system_timer_count = 0;
+	void *system_timer_context = (void*) &system_timer_count;
+	alt_alarm_start(&system_timer, 1, system_timer_isr_function, system_timer_context);
+
 	alt_alarm a_events_timer;
 	int a_timer_count = 0;
 	void *a_events_timer_context = (void*) &a_timer_count;
@@ -236,6 +253,13 @@ int main(void)
 
 	printf("Entering Loop.\n");
 	while(1) {
+		previous_system_time = system_time;
+		system_time = system_timer_count;
+		data.AS = 0;
+		data.VS = 0;
+		data.deltaT = system_time - previous_system_time;
+		//tick(&data);
+
 		// Get switch state from switch peripheral (returns a binary)
 		switch_value = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);
 
@@ -269,10 +293,16 @@ int main(void)
 			if (implementation_mode == C_MODE) {
 				if (v_timer_count >= PVARP_VALUE) {
 					atrial_sense = true;
+					ventricular_sense = false;
 					a_timer_count = 0;
 				}
 			} else if (implementation_mode == SCCHARTS_MODE) {
 				SCCHARTS_Mode_Pacemaker();
+				if (!a_is_paced) {
+					data.AS = 1;
+				} else {
+					data.AS = 0;
+				}
 			}
 
 			if (a_is_paced) {
@@ -286,7 +316,7 @@ int main(void)
 			}
 
 			//atrial_sense = true;
-			ventricular_sense = false;
+
 			a_is_paced = false;
 		}
 
@@ -299,9 +329,19 @@ int main(void)
 				// Reset timer if v is sensed after VRP
 				if (v_timer_count >= VRP_VALUE) {
 					ventricular_sense = true;
+					atrial_sense = false;
 					v_timer_count = 0;
 				}
+				if (v_timer_count >= URI_VALUE) {
+					ventricular_sense = true;
+				}
 			} else if (implementation_mode == SCCHARTS_MODE) {
+				if (!v_is_paced) {
+					data.VS = 1;
+				}
+				else {
+					data.VS = 0;
+				}
 				SCCHARTS_Mode_Pacemaker();
 			}
 
@@ -315,14 +355,22 @@ int main(void)
 				printf("Ventricle Sensed! -- Not Paced\n");
 			}
 
+
+			if (!ventricular_sense) {
+				led_pace_ventricular_event = false;
+				led_sense_ventricular_event = false;
+			}
+
+
 			v_is_paced = false;
-			atrial_sense = false;
+
 		}
 		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
 		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
 
 		// IMPLEMENTATION
 		// IMPLEMENTATION
+
 
 		if (implementation_mode == C_MODE) {
 			/*
@@ -336,7 +384,19 @@ int main(void)
 			//ventricular_sense_paced = false;
 
 		} else if (implementation_mode == SCCHARTS_MODE) {
+			tick(&data);
+
+			int a_test = data.AP;
+			int v_test = data.VP;
+
+			if (a_test) {
+				send_atrial_event(true);
+			}
+			if (v_test) {
+				send_ventricular_event(true);
+			}
 			SCCHARTS_Mode_Pacemaker();
+
 		}
 
 
@@ -354,10 +414,15 @@ int main(void)
 			}
 			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
 
-
-			// SET ALL BITS UP FROM LEDG4 TO LEDG7
-			for (int i = LEDG4; i < LEDG7 + 1; i++) {
-				led_value = led_value |= (1<<i);
+			if (implementation_mode == C_MODE) {
+				// SET ALL BITS UP FROM LEDG4 TO LEDG7
+				for (int i = LEDG4; i < LEDG7 + 1; i++) {
+					led_value = led_value |= (1<<i);
+				}
+			} else if (implementation_mode == SCCHARTS_MODE) {
+				for (int i = LEDG4; i < LEDG7 + 1; i += 2) {
+					led_value = led_value |= (1<<i);
+				}
 			}
 
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
@@ -372,11 +437,16 @@ int main(void)
 			}
 			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
 
-			// SET ALL BITS UP FROM LEDG0 TO LEDG3
-			for (int i = LEDG0; i < LEDG3 + 1; i++) {
-				led_value = led_value |= (1<<i);
+			if (implementation_mode == C_MODE) {
+				// SET ALL BITS UP FROM LEDG0 TO LEDG3
+				for (int i = LEDG0; i < LEDG3 + 1; i++) {
+					led_value = led_value |= (1<<i);
+				}
+			} else if (implementation_mode == SCCHARTS_MODE) {
+				for (int i = LEDG0; i < LEDG3 + 1; i += 2) {
+					led_value = led_value |= (1<<i);
+				}
 			}
-
 
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
 
@@ -393,10 +463,15 @@ int main(void)
 			}
 			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
 
-
-			// SET ALL BITS UP FROM LEDG0 TO LEDG3
-			for (int i = 9; i < 18; i++) {
-				led_value = led_value |= (1<<i);
+			if (implementation_mode == C_MODE) {
+				// SET ALL BITS UP FROM LEDG0 TO LEDG3
+				for (int i = 9; i < 18; i++) {
+					led_value = led_value |= (1<<i);
+				}
+			} else if (implementation_mode == SCCHARTS_MODE) {
+				for (int i = 9; i < 18; i += 2) {
+					led_value = led_value |= (1<<i);
+				}
 			}
 
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
@@ -411,9 +486,15 @@ int main(void)
 			}
 			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
 
-			// SET ALL BITS UP FROM LEDG0 TO LEDG3
-			for (int i = 0; i < 9; i++) {
-				led_value = led_value |= (1<<i);
+			if (implementation_mode == C_MODE) {
+				// SET ALL BITS UP FROM LEDG0 TO LEDG3
+				for (int i = 0; i < 9; i++) {
+					led_value = led_value |= (1<<i);
+				}
+			} else if (implementation_mode == SCCHARTS_MODE) {
+				for (int i = 0; i < 9; i += 2) {
+					led_value = led_value |= (1<<i);
+				}
 			}
 
 

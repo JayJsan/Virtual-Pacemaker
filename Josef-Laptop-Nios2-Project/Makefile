@@ -146,6 +146,7 @@ C_SRCS += uart_test.c
 C_SRCS += buttons_test.c
 C_SRCS += main.c
 C_SRCS += switches.c
+C_SRCS += sccharts.c
 CXX_SRCS :=
 ASM_SRCS :=
 

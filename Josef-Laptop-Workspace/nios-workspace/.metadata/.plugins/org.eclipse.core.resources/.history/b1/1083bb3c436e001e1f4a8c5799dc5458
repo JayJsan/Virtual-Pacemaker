@@ -1,0 +1,637 @@
+/*
+ * "Hello World" example.
+ *
+ * This example prints 'Hello from Nios II' to the STDOUT stream. It runs on
+ * the Nios II 'standard', 'full_featured', 'fast', and 'low_cost' example
+ * designs. It runs with or without the MicroC/OS-II RTOS and requires a STDOUT
+ * device in your system's hardware.
+ * The memory footprint of this hosted application is ~69 kbytes by default
+ * using the standard reference design.
+ *
+ * For a reduced footprint version of this template, and an explanation of how
+ * to reduce the memory footprint for a given application, see the
+ * "small_hello_world" template.
+ *
+ */
+// Remember to build the project if includes aren't working
+#include <system.h> // Used for referencing symbolic names
+#include <altera_avalon_pio_regs.h> // Used for PIO functions
+#include <altera_avalon_uart_regs.h> // Used for UART functions
+#include <stdio.h>
+#include <sys/alt_irq.h> // Used to register interrupts
+#include <alt_types.h> // for
+#include <string.h>
+#include <time.h>
+#include <stdbool.h>
+#include <sys/alt_alarm.h> // timers
+#include "sccharts.h"
+// Timeout values expected in MILLISECONDS
+#define AVI_VALUE 300
+#define AEI_VALUE 800
+#define PVARP_VALUE 50
+#define VRP_VALUE 150
+#define LRI_VALUE 950
+#define URI_VALUE 900
+
+#define PULSE_MODE_SWITCH 0
+#define IMPLEMENTAITON_MODE_SWITCH 1
+
+#define UART_MODE 0
+#define BUTTON_MODE 1
+
+#define C_MODE 0
+#define SCCHARTS_MODE 1
+
+#define KEY0 0
+#define KEY1 1
+
+#define LEDG0 0
+#define LEDG1 1
+#define LEDG2 2
+#define LEDG3 3
+#define LEDG4 4
+#define LEDG5 5
+#define LEDG6 6
+#define LEDG7 7
+
+#define LED_ON_MILLISECONDS 25
+
+bool pulse_mode = UART_MODE;
+bool implementation_mode = C_MODE;
+
+bool atrial_event = false;
+bool a_is_paced = false;
+bool ventricular_event = false;
+bool v_is_paced = false;
+
+bool atrial_sense = false;
+bool ventricular_sense = false;
+bool atrial_sense_paced = false;
+bool ventricular_sense_paced = false;
+
+bool led_pace_atrial_event = false;
+bool led_pace_ventricular_event = false;
+
+bool led_sense_atrial_event = false;
+bool led_sense_ventricular_event = false;
+
+bool a_pace_led_timer_already_started = false;
+bool v_pace_led_timer_already_started = false;
+
+bool a_sense_led_timer_already_started = false;
+bool v_sense_led_timer_already_started = false;
+
+void buttons_interrupts_function(void* context, alt_u32 id)
+{
+
+	int* temp_button_value = (int*) context; // Cast the context before using it
+	(*temp_button_value) = IORD_ALTERA_AVALON_PIO_EDGE_CAP(KEYS_BASE);
+
+	// clear the edge capture register
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEYS_BASE, 0);
+
+	// If we are NOT in button mode, we exit early.
+	if (pulse_mode == UART_MODE) {
+		return;
+	}
+
+
+	if ((*temp_button_value & (1 << KEY1))) {
+		//printf("KEY0 : ATRIAL EVENT!\n");
+		send_atrial_event(true);
+		printf("Atrium Manually Paced!\n");
+	}
+
+	if ((*temp_button_value & (1 << KEY0))) {
+		//printf("KEY1 : VENTRICULAR EVENT!\n");
+		send_ventricular_event(true);
+		printf("Ventricular Manually Paced!\n");
+	}
+
+	if ((*temp_button_value & (1 << 2))) {
+		// reset leds -- DEBUGGING / CLEAR EVENTS
+		atrial_event = false;
+		ventricular_event = false;
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0);
+	}
+
+	//printf("button pressed: %i\n", *temp_button_value); DEBUGGING PURPOSES
+}
+
+alt_u32 a_pace_led_timer_isr_function(void* context) {
+
+	//IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0);
+	//int *led_time_count = (int*) context;
+	led_pace_atrial_event = false;
+	return LED_ON_MILLISECONDS;
+}
+
+alt_u32 v_pace_led_timer_isr_function(void* context) {
+
+	//IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0);
+	//int *(led_time_count) = (int*) context;
+	led_pace_ventricular_event = false;
+	return LED_ON_MILLISECONDS;
+}
+
+alt_u32 a_sense_led_timer_isr_function(void* contxet) {
+	led_sense_atrial_event = false;
+	return LED_ON_MILLISECONDS;
+}
+
+alt_u32 v_sense_led_timer_isr_function(void* contxet) {
+	led_sense_ventricular_event = false;
+	return LED_ON_MILLISECONDS;
+}
+
+void uart_read_isr_function(void* context, alt_u32 id)
+{
+	// if we are NOT in UART MODE then exit early;
+
+	char temp;
+	temp = IORD_ALTERA_AVALON_UART_RXDATA(UART_BASE);
+
+	if (pulse_mode == BUTTON_MODE) {
+
+		if (atrial_event) {
+			printf("Atrial Transmitted to UART!\n");
+		}
+
+		if (ventricular_event) {
+			printf("Ventricular Transmitted to UART!\n");
+		}
+		return;
+	}
+
+	if (temp == 'A') {
+		send_atrial_event(false);
+	}
+	if (temp == 'V') {
+		send_ventricular_event(false);
+	}
+	//printf("UART read: %c\n", temp);
+}
+
+alt_u32 a_events_timer_isr_function(void* context) {
+	int *a_timer_count =(int*) context;
+	(*a_timer_count)++;
+	return 1; // return 1 millisecond
+}
+
+alt_u32 v_events_timer_isr_function(void* context) {
+	int *v_timer_count =(int*) context;
+	(*v_timer_count)++;
+	return 1; // return 1 millisecond
+}
+
+alt_u32 system_timer_isr_function(void* context) {
+	int *system_timer_count = (int* ) context;
+	(*system_timer_count)++;
+	return 1; // return 1 millisecond
+}
+
+int main(void)
+{
+	printf("Starting.\n");
+
+	unsigned int switch_value = 0;
+	int button_value = 1;
+	void* button_context = (void*) &button_value; // Cast before passing context to isr
+
+	unsigned int system_time = 0;
+	unsigned int previous_system_time = 0;
+	TickData data;
+	reset(&data);
+
+	//========= 	  INTERRUPTS  	   =========
+
+	// Clear edge capture register
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEYS_BASE, 0);
+
+	// Enable interrupts
+	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(KEYS_BASE, 0x7);
+	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(UART_BASE, 0x0080);
+
+	// Register the isr
+	alt_irq_register(KEYS_IRQ, button_context, buttons_interrupts_function);
+	alt_irq_register(UART_IRQ, NULL, uart_read_isr_function);
+
+	printf("Interrupts Initialised.\n");
+	//========= 	  INTERRUPTS  	   =========
+	//========= 	    TIMERS  	   =========
+	// Lets LEDs stay on for 500 seconds.
+	alt_alarm a_pace_led_timer;
+	alt_alarm_start(&a_pace_led_timer, LED_ON_MILLISECONDS, a_pace_led_timer_isr_function, NULL);
+
+	alt_alarm v_pace_led_timer;
+	alt_alarm_start(&v_pace_led_timer, LED_ON_MILLISECONDS, v_pace_led_timer_isr_function, NULL);
+
+	alt_alarm a_sense_led_timer;
+	alt_alarm_start(&a_sense_led_timer, LED_ON_MILLISECONDS, a_sense_led_timer_isr_function, NULL);
+
+	alt_alarm v_sense_led_timer;
+	alt_alarm_start(&v_sense_led_timer, LED_ON_MILLISECONDS, v_sense_led_timer_isr_function, NULL);
+
+	alt_alarm system_timer;
+	int system_timer_count = 0;
+	void *system_timer_context = (void*) &system_timer_count;
+	alt_alarm_start(&system_timer, 1, system_timer_isr_function, system_timer_context);
+
+	alt_alarm a_events_timer;
+	int a_timer_count = 0;
+	void *a_events_timer_context = (void*) &a_timer_count;
+	alt_alarm_start(&a_events_timer, 1, a_events_timer_isr_function, a_events_timer_context);
+
+	alt_alarm v_events_timer;
+	int v_timer_count = 0;
+	void *v_events_timer_context = (void*) &v_timer_count;
+	alt_alarm_start(&v_events_timer, 1, v_events_timer_isr_function, v_events_timer_context);
+
+
+	//========= 	    TIMERS  	   =========
+	printf("Timers Initialised.\n");
+
+	printf("Entering Loop.\n");
+	while(1) {
+		previous_system_time = system_time;
+		system_time = system_timer_count;
+		data.AS = 0;
+		data.VS = 0;
+		data.deltaT = system_time - previous_system_time;
+		//tick(&data);
+
+		// Get switch state from switch peripheral (returns a binary)
+		switch_value = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);
+
+
+		// ========= 	  PULSE MODES 	  =========
+		if (switch_value & (1 << PULSE_MODE_SWITCH)) {
+			// SW0 is ON
+			pulse_mode = BUTTON_MODE;
+		} else if (!(switch_value & (1 << PULSE_MODE_SWITCH))) {
+			// SW0 is OFF
+			pulse_mode = UART_MODE;
+		}
+		// ========= 	  PULSE MODES 	  =========
+
+		// ========= IMPLEMENTATION MODES =========
+		if (switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH)) {
+			// SW1 is ON
+			implementation_mode = SCCHARTS_MODE;
+		} else if (!(switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH))) {
+			// SW1 is OFF
+			implementation_mode = C_MODE;
+		}
+		// ========= IMPLEMENTATION MODES =========
+
+		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
+		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
+		if (atrial_event) {
+			printf("\n");
+			atrial_event = false; // COULD BE A PROBLEM?
+			// If we are in C_Mode, restart timer
+			if (implementation_mode == C_MODE) {
+				if (v_timer_count >= PVARP_VALUE) {
+					atrial_sense = true;
+					a_timer_count = 0;
+				}
+				if (v_timer_count <= URI_VALUE) {
+
+				}
+			} else if (implementation_mode == SCCHARTS_MODE) {
+				SCCHARTS_Mode_Pacemaker();
+				if (!a_is_paced) {
+					data.AS = 1;
+				} else {
+					data.AS = 0;
+				}
+			}
+
+			if (a_is_paced) {
+				led_pace_atrial_event = true;
+				atrial_sense_paced = true;
+				printf("Atrial Sensed! - Paced!\n");
+			} else {
+				led_sense_atrial_event = true;
+				atrial_sense_paced = false;
+				printf("Atrial Sensed! - Not Paced\n");
+			}
+
+			//atrial_sense = true;
+			ventricular_sense = false;
+			a_is_paced = false;
+		}
+
+		if (ventricular_event) {
+			ventricular_event = false;
+
+			// do stuff
+			// If we are in C_Mode, restart timer
+			if (implementation_mode == C_MODE) {
+				// Reset timer if v is sensed after VRP
+				if (v_timer_count >= VRP_VALUE) {
+					printf("RESET VEVENTS\n");
+					ventricular_sense = true;
+					v_timer_count = 0;
+				}
+			} else if (implementation_mode == SCCHARTS_MODE) {
+				if (!v_is_paced) {
+					data.VS = 1;
+				}
+				else {
+					data.VS = 0;
+				}
+				SCCHARTS_Mode_Pacemaker();
+			}
+
+			if (v_is_paced) {
+				led_pace_ventricular_event = true;
+				ventricular_sense_paced = true;
+				printf("Ventricle Sensed! -- Paced\n");
+			} else {
+				led_sense_ventricular_event = true;
+				ventricular_sense_paced = false;
+				printf("Ventricle Sensed! -- Not Paced\n");
+			}
+
+			v_is_paced = false;
+			atrial_sense = false;
+		}
+		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
+		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
+
+		// IMPLEMENTATION
+		// IMPLEMENTATION
+
+
+		if (implementation_mode == C_MODE) {
+			/*
+			if (v_timer_count >= LRI_VALUE) {
+				ventricular_sense = false;
+			}
+			*/
+
+			C_Mode_Pacemaker(a_timer_count, v_timer_count);
+			//atrial_sense_paced = false;
+			//ventricular_sense_paced = false;
+
+		} else if (implementation_mode == SCCHARTS_MODE) {
+			tick(&data);
+
+			int a_test = data.AP;
+			int v_test = data.VP;
+
+			if (a_test) {
+				send_atrial_event(true);
+			}
+			if (v_test) {
+				send_ventricular_event(true);
+			}
+			SCCHARTS_Mode_Pacemaker();
+
+		}
+
+
+		// IMPLEMENTATION
+		// IMPLEMENTATION
+
+
+		// PACE LEDS == PACE LEDS == PACE LEDS == PACE LEDS ==
+		// PACE LEDS == PACE LEDS == PACE LEDS == PACE LEDS ==
+		if (led_pace_atrial_event) {
+			if (!a_pace_led_timer_already_started) {
+				alt_alarm_stop(&a_pace_led_timer);
+				alt_alarm_start(&a_pace_led_timer, LED_ON_MILLISECONDS, a_pace_led_timer_isr_function, NULL);
+				a_pace_led_timer_already_started = true;
+			}
+			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
+
+			if (implementation_mode == C_MODE) {
+				// SET ALL BITS UP FROM LEDG4 TO LEDG7
+				for (int i = LEDG4; i < LEDG7 + 1; i++) {
+					led_value = led_value |= (1<<i);
+				}
+			} else if (implementation_mode == SCCHARTS_MODE) {
+				for (int i = LEDG4; i < LEDG7 + 1; i += 2) {
+					led_value = led_value |= (1<<i);
+				}
+			}
+
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
+
+		}
+
+		if (led_pace_ventricular_event) {
+			if (!v_pace_led_timer_already_started) {
+				alt_alarm_stop(&v_pace_led_timer);
+				alt_alarm_start(&v_pace_led_timer, LED_ON_MILLISECONDS, v_pace_led_timer_isr_function, NULL);
+				v_pace_led_timer_already_started = true;
+			}
+			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
+
+			if (implementation_mode == C_MODE) {
+				// SET ALL BITS UP FROM LEDG0 TO LEDG3
+				for (int i = LEDG0; i < LEDG3 + 1; i++) {
+					led_value = led_value |= (1<<i);
+				}
+			} else if (implementation_mode == SCCHARTS_MODE) {
+				for (int i = LEDG0; i < LEDG3 + 1; i += 2) {
+					led_value = led_value |= (1<<i);
+				}
+			}
+
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
+
+		}
+		// PACE LEDS == PACE LEDS == PACE LEDS == PACE LEDS ==
+		// PACE LEDS == PACE LEDS == PACE LEDS == PACE LEDS ==
+
+		// SENSE LEDS == SENSE LEDS == SENSE LEDS == SENSE LEDS ==
+		if (led_sense_atrial_event) {
+			if (!a_sense_led_timer_already_started) {
+				alt_alarm_stop(&a_sense_led_timer);
+				alt_alarm_start(&a_sense_led_timer, LED_ON_MILLISECONDS, a_sense_led_timer_isr_function, NULL);
+				a_sense_led_timer_already_started = true;
+			}
+			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
+
+			if (implementation_mode == C_MODE) {
+				// SET ALL BITS UP FROM LEDG0 TO LEDG3
+				for (int i = 9; i < 18; i++) {
+					led_value = led_value |= (1<<i);
+				}
+			} else if (implementation_mode == SCCHARTS_MODE) {
+				for (int i = 9; i < 18; i += 2) {
+					led_value = led_value |= (1<<i);
+				}
+			}
+
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
+
+		}
+
+		if (led_sense_ventricular_event) {
+			if (!v_sense_led_timer_already_started) {
+				alt_alarm_stop(&v_sense_led_timer);
+				alt_alarm_start(&v_sense_led_timer, LED_ON_MILLISECONDS, v_sense_led_timer_isr_function, NULL);
+				v_sense_led_timer_already_started = true;
+			}
+			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
+
+			if (implementation_mode == C_MODE) {
+				// SET ALL BITS UP FROM LEDG0 TO LEDG3
+				for (int i = 0; i < 9; i++) {
+					led_value = led_value |= (1<<i);
+				}
+			} else if (implementation_mode == SCCHARTS_MODE) {
+				for (int i = 0; i < 9; i += 2) {
+					led_value = led_value |= (1<<i);
+				}
+			}
+
+
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
+
+		}
+
+		clear_pace_led_events();
+		clear_sense_led_events();
+		//clear_heart_flags();
+	}
+	printf("Exiting Loop.\n");
+	return 0;
+}
+
+void send_atrial_event(bool isThisEventPaced) {
+	if (isThisEventPaced) {
+		a_is_paced = true;
+		char atrial_char = 'A';
+		IOWR_ALTERA_AVALON_UART_TXDATA(UART_BASE, atrial_char);
+	} else {
+		a_is_paced = false;
+	}
+	atrial_event = true;
+	//printf("Atrial Event Flagged!\n");
+}
+
+void send_atrial_event_with_time_count(bool isThisEventPaced, int a_timer_count) {
+	if (isThisEventPaced && a_timer_count >= URI_VALUE) {
+		atrial_event = true;
+		a_is_paced = true;
+		char atrial_char = 'A';
+		IOWR_ALTERA_AVALON_UART_TXDATA(UART_BASE, atrial_char);
+	}
+}
+
+void send_ventricular_event(bool isThisEventPaced) {
+	if (isThisEventPaced) {
+		v_is_paced = true;
+		char ventricular_char = 'V';
+		IOWR_ALTERA_AVALON_UART_TXDATA(UART_BASE, ventricular_char);
+	} else {
+		v_is_paced = false;
+	}
+	ventricular_event = true;
+	//printf("Ventricular Event Flagged!\n");
+}
+
+void send_ventricular_event_with_timer_count(bool isThisEventPaced, int v_timer_count) {
+	if (isThisEventPaced && v_timer_count >= URI_VALUE) {
+		v_is_paced = true;
+		ventricular_event = true;
+		char ventricular_char = 'V';
+		IOWR_ALTERA_AVALON_UART_TXDATA(UART_BASE, ventricular_char);
+	}
+}
+
+void clear_heart_flags() {
+	atrial_event = false;
+	ventricular_event = false;
+	a_is_paced = false;
+	v_is_paced = false;
+}
+
+void clear_pace_led_events() {
+	if (!led_pace_atrial_event) {
+		a_pace_led_timer_already_started = false;
+		int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
+
+
+		// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
+		for (int i = LEDG4; i < LEDG7 + 1; i++) {
+			led_value = led_value &= ~(1<<i);
+		}
+
+
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
+	}
+
+	if (!led_pace_ventricular_event) {
+		v_pace_led_timer_already_started = false;
+		int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
+
+		// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
+		for (int i = LEDG0; i < LEDG3 + 1; i++) {
+			led_value = led_value &= ~(1<<i);
+		}
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
+	}
+}
+
+void clear_sense_led_events() {
+	if (!led_sense_atrial_event) {
+		a_sense_led_timer_already_started = false;
+		int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
+
+		// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
+		for (int i = 9; i < 18; i++) {
+			led_value = led_value &= ~(1<<i);
+		}
+
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
+	}
+
+	if (!led_sense_ventricular_event) {
+		v_sense_led_timer_already_started = false;
+		int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
+
+		// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
+		for (int i = 0; i < 9; i++) {
+			led_value = led_value &= ~(1<<i);
+		}
+
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
+	}
+}
+
+void C_Mode_Pacemaker(int a_timer_count, int v_timer_count) {
+	// AEvents Logic
+	//int a_count = (int)a_timer_count;
+
+	// pace ventricular event if
+	if (v_timer_count >= AEI_VALUE && !atrial_sense) {
+		// send atrial event
+		send_atrial_event(true);
+	}
+
+	// Do not pace ventricle until URI
+	if (v_timer_count >= URI_VALUE) {
+		// Ignore any ventricular events until VRP
+		// Pace ventricular if above AVI
+		if (a_timer_count >= AVI_VALUE && !ventricular_sense) {
+			send_ventricular_event(true);
+		}
+
+		// Pace ventricular if LRI has been hit
+		if (v_timer_count >= LRI_VALUE && !ventricular_sense) {
+			// Send Ventricular event
+			send_ventricular_event(true);
+		}
+
+
+	}
+}
+
+void SCCHARTS_Mode_Pacemaker() {
+
+}

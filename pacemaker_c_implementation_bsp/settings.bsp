@@ -2,10 +2,10 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>17/10/2023 3:29:20 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1697509760699</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>19/10/2023 6:11:15 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1697692275393</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Projects\University\303-Assignment\pacemaker_c_implementation_bsp</BspGeneratedLocation>
-        <BspSettingsFile>.\settings.bsp</BspSettingsFile>
+        <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\Projects\University\303-Assignment\Lab1\Lab-1\nios2_system.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>cpu</Cpu>
