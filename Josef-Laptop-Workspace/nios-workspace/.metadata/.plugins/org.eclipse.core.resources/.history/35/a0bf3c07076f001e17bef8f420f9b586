@@ -1,0 +1,17 @@
+/*
+ * lcd_control.c
+ *
+ *  Created on: 20/10/2023
+ *      Author: Jobsa
+ */
+
+#include "lcd_control.h"
+#include "defines.h" // Custom-defined defines
+#include <system.h>
+#include <stdio.h> // for NULL
+#include <stdbool.h> // for BOOL
+#include <altera_avalon_pio_regs.h> // Used for PIO functions
+
+void print_modes_to_lcd(FILE* LCD, bool impl_mode, bool pulse_mode) {
+
+}

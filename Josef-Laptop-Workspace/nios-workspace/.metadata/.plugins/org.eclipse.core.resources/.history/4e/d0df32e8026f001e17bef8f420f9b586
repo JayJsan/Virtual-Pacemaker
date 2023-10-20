@@ -1,0 +1,11 @@
+/*
+ * led_control.c
+ *
+ *  Created on: 20/10/2023
+ *      Author: Jobsa
+ */
+
+
+void clear_red_leds_0_9() {
+
+}

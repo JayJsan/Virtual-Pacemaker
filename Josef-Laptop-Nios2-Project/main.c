@@ -21,35 +21,12 @@
 #include <sys/alt_irq.h> // Used to register interrupts
 #include <alt_types.h> // for
 #include <string.h>
-#include <time.h>
 #include <stdbool.h>
 #include <sys/alt_alarm.h> // timers
 #include "sccharts.h"
-
+#include "defines.h" // Includes quality-of-life variable changes
 #include "timing.h" // Timeout values expected in MILLISECONDS
-
-#define PULSE_MODE_SWITCH 0
-#define IMPLEMENTAITON_MODE_SWITCH 1
-
-#define UART_MODE 0
-#define BUTTON_MODE 1
-
-#define C_MODE 0
-#define SCCHARTS_MODE 1
-
-#define KEY0 0
-#define KEY1 1
-
-#define LEDG0 0
-#define LEDG1 1
-#define LEDG2 2
-#define LEDG3 3
-#define LEDG4 4
-#define LEDG5 5
-#define LEDG6 6
-#define LEDG7 7
-
-#define LED_ON_MILLISECONDS 25
+#include "led_control.h" // User-Defined LED Control functions
 
 bool pulse_mode = UART_MODE;
 bool implementation_mode = C_MODE;
@@ -80,6 +57,8 @@ bool print_flag = false;
 bool pulse_switched_flag = false;
 bool implementation_switched_flag = false;
 
+int current_event = ATRIAL_EVENT;
+
 int a_timer_count = 0;
 int v_timer_count = 0;
 
@@ -100,18 +79,16 @@ void buttons_interrupts_function(void* context, alt_u32 id)
 
 	if ((*temp_button_value & (1 << KEY1))) {
 		//printf("KEY0 : ATRIAL EVENT!\n");
-		send_atrial_event(true);
-		printf("Atrium Manually Paced!\n");
+		send_atrial_event(false);
+		printf("Atrium Manually Sent!\n");
 	}
 
 	if ((*temp_button_value & (1 << KEY0))) {
 		//printf("KEY1 : VENTRICULAR EVENT!\n");
-		if (v_timer_count >= URI_VALUE) {
-			send_ventricular_event(true);
-			printf("Ventricular Manually Paced!\n");
-		} else {
-			printf("URI_VALUE not over!\n");
-		}
+
+		send_ventricular_event(false);
+		printf("Ventricular Manually Sent!\n");
+
 
 	}
 
@@ -243,7 +220,7 @@ int main(void)
 	alt_alarm_start(&system_timer, 1, system_timer_isr_function, system_timer_context);
 
 	alt_alarm a_events_timer;
-	//int a_timer_count = 0;
+	// a_timer_count = 0;
 	void *a_events_timer_context = (void*) &a_timer_count;
 	alt_alarm_start(&a_events_timer, 1, a_events_timer_isr_function, a_events_timer_context);
 
@@ -312,13 +289,13 @@ int main(void)
 			atrial_event = false; // COULD BE A PROBLEM?
 			// If we are in C_Mode, restart timer
 			if (implementation_mode == C_MODE) {
-				if (v_timer_count >= PVARP_VALUE) {
+				if (v_timer_count >= PVARP_VALUE && current_event == VENTRICULAR_EVENT) {
+					current_event = ATRIAL_EVENT;
 					atrial_sense = true;
 					ventricular_sense = false;
 					a_timer_count = 0;
 				}
 			} else if (implementation_mode == SCCHARTS_MODE) {
-				SCCHARTS_Mode_Pacemaker();
 				if (!a_is_paced) {
 					data.AS = 1;
 				} else {
@@ -348,14 +325,14 @@ int main(void)
 			// If we are in C_Mode, restart timer
 			if (implementation_mode == C_MODE) {
 				// Reset timer if v is sensed after VRP
-				if (v_timer_count >= VRP_VALUE) {
+				if (v_timer_count >= VRP_VALUE && current_event == ATRIAL_EVENT) {
+					printf("Valid Ventricle Sense!\n");
+					current_event = VENTRICULAR_EVENT;
 					ventricular_sense = true;
 					atrial_sense = false;
 					v_timer_count = 0;
 				}
-				if (v_timer_count >= URI_VALUE) {
-					ventricular_sense = true;
-				}
+
 			} else if (implementation_mode == SCCHARTS_MODE) {
 				if (!v_is_paced) {
 					data.VS = 1;
@@ -363,7 +340,6 @@ int main(void)
 				else {
 					data.VS = 0;
 				}
-				SCCHARTS_Mode_Pacemaker();
 			}
 
 			if (v_is_paced) {
@@ -394,16 +370,7 @@ int main(void)
 
 
 		if (implementation_mode == C_MODE) {
-			/*
-			if (v_timer_count >= LRI_VALUE) {
-				ventricular_sense = false;
-			}
-			*/
-
-			C_Mode_Pacemaker(a_timer_count, v_timer_count);
-			//atrial_sense_paced = false;
-			//ventricular_sense_paced = false;
-
+			c_mode_pacemaker(a_timer_count, v_timer_count);
 		} else if (implementation_mode == SCCHARTS_MODE) {
 			tick(&data);
 
@@ -416,8 +383,6 @@ int main(void)
 			if (v_test) {
 				send_ventricular_event(true);
 			}
-			SCCHARTS_Mode_Pacemaker();
-
 		}
 
 
@@ -505,6 +470,7 @@ int main(void)
 				alt_alarm_start(&v_sense_led_timer, LED_ON_MILLISECONDS, v_sense_led_timer_isr_function, NULL);
 				v_sense_led_timer_already_started = true;
 			}
+
 			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
 
 			if (implementation_mode == C_MODE) {
@@ -522,41 +488,36 @@ int main(void)
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
 
 		}
-
-		// LCD PRINT
+		// LCD IMPLEMENTATION == LCD IMPLEMENTATION == LCD IMPLEMENTATION == LCD IMPLEMENTATION ==
+		// LCD IMPLEMENTATION == LCD IMPLEMENTATION == LCD IMPLEMENTATION == LCD IMPLEMENTATION ==
 		if (lcd != NULL) {
+			// Print flag used to print once every time either mode changes
+			// instead of every while iteration
 			if (print_flag) {
 				print_flag = false;
-
-				#define ESC 27
-				#define CLEAR_LCD_STRING "[2J"
-
-				fprintf(lcd, "%c%s", ESC, CLEAR_LCD_STRING);
-				if (implementation_mode == C_MODE) {
-					fprintf(lcd, "IMPL MODE: C\n");
-				}
-				else if (implementation_mode == SCCHARTS_MODE) {
-					fprintf(lcd, "IMPL MODE: SCCHARTS\n");
-				}
-
-				if (pulse_mode == UART_MODE) {
-					fprintf(lcd, "PULSE MODE: UART\n");
-				}
-				else if (pulse_mode == BUTTON_MODE) {
-					fprintf(lcd, "PULSE MODE: BUTTON\n");
-				}
+				// Call print to LCD function from lcd_control.c
+				print_modes_to_lcd(lcd, implementation_mode, pulse_mode);
 			}
 		}
+		// LCD IMPLEMENTATION == LCD IMPLEMENTATION == LCD IMPLEMENTATION == LCD IMPLEMENTATION ==
+		// LCD IMPLEMENTATION == LCD IMPLEMENTATION == LCD IMPLEMENTATION == LCD IMPLEMENTATION ==
 
+		// CALL CLEAR LED FUNCTIONS
+		// -- Only clears when the relevant flags are set.
 		clear_pace_led_events();
 		clear_sense_led_events();
-		//clear_heart_flags();
 	}
 	printf("Exiting Loop.\n");
 	return 0;
 }
 
+/**
+ * Sets the atrial event flag to true when ANY atrial event is sensed
+ *
+ * bool isThisEventPaced - Sets the a_is_paced flag to true if this event is paced
+ */
 void send_atrial_event(bool isThisEventPaced) {
+	// Ventricular event == true when ANY sort of event happens
 	if (isThisEventPaced) {
 		a_is_paced = true;
 		char atrial_char = 'A';
@@ -565,9 +526,14 @@ void send_atrial_event(bool isThisEventPaced) {
 		a_is_paced = false;
 	}
 	atrial_event = true;
-	//printf("Atrial Event Flagged!\n");
+	//printf("Atrial Event Flagged!\n"); -- DEBUGGINGS PURPOSES
 }
 
+/**
+ * Sets the ventricular event flag to true when ANY ventricular event is sensed
+ *
+ * bool isThisEventPaced - Sets the v_is_paced flag to true if this event is paced
+ */
 void send_ventricular_event(bool isThisEventPaced) {
 	if (isThisEventPaced) {
 		v_is_paced = true;
@@ -577,97 +543,73 @@ void send_ventricular_event(bool isThisEventPaced) {
 		v_is_paced = false;
 	}
 	ventricular_event = true;
-	//printf("Ventricular Event Flagged!\n");
+	//printf("Ventricular Event Flagged!\n"); -- DEBUGGINGS PURPOSES
 }
 
-void clear_heart_flags() {
-	atrial_event = false;
-	ventricular_event = false;
-	a_is_paced = false;
-	v_is_paced = false;
-}
-
+/**
+ * Clears the atrium/ventricle pace green LEDs
+ */
 void clear_pace_led_events() {
+	// If LED flag for atrial pace is no longer on, clear LEDs
 	if (!led_pace_atrial_event) {
 		a_pace_led_timer_already_started = false;
-		int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
-
-
-		// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
-		for (int i = LEDG4; i < LEDG7 + 1; i++) {
-			led_value = led_value &= ~(1<<i);
-		}
-
-
-		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
+		// Call clear relevant green LEDs function from led_control.c
+		clear_green_leds_4_to_7();
 	}
-
+	// If LED flag for atrial pace is no longer on, clear LEDs
 	if (!led_pace_ventricular_event) {
 		v_pace_led_timer_already_started = false;
-		int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
-
-		// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
-		for (int i = LEDG0; i < LEDG3 + 1; i++) {
-			led_value = led_value &= ~(1<<i);
-		}
-		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
+		// Call clear relevant green LEDs function from led_control.c
+		clear_green_leds_0_to_3();
 	}
 }
 
+/**
+ * Clears the atrium/ventricle sense red LEDs
+ */
 void clear_sense_led_events() {
+	// If LED flag for atrial sense is no longer on, clear LEDs
 	if (!led_sense_atrial_event) {
 		a_sense_led_timer_already_started = false;
-		int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
-
-		// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
-		for (int i = 9; i < 18; i++) {
-			led_value = led_value &= ~(1<<i);
-		}
-
-		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
+		// Call clear relevant red LEDs function from led_control.c
+		clear_red_leds_9_to_17();
 	}
-
+	// If LED flag for ventricular sense is no longer on, clear LEDs
 	if (!led_sense_ventricular_event) {
 		v_sense_led_timer_already_started = false;
-		int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
-
-		// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
-		for (int i = 0; i < 9; i++) {
-			led_value = led_value &= ~(1<<i);
-		}
-
-		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
+		// Call clear relevant red LEDs function from led_control.c
+		clear_red_leds_0_to_8();
 	}
 }
 
-void C_Mode_Pacemaker(int a_timer_count, int v_timer_count) {
-	// AEvents Logic
-	//int a_count = (int)a_timer_count;
-
-	// pace ventricular event if
-	if (v_timer_count >= AEI_VALUE && !atrial_sense) {
-		// send atrial event
+/**
+ * This function is used for the C-based pacemaker, using atrium and ventricle timer counts presumably defined
+ * within main.
+ *
+ * Using a_timer_count and v_timer_count, it sends an atrial event or ventricle event depending on the
+ * conditions and current events of the pacemaker
+ *
+ * int a_timer_count - the count from an atrium alt_alarm
+ * int v_timer_count - the count from a ventricle alt_alarm
+ */
+void c_mode_pacemaker(int a_timer_count, int v_timer_count) {
+	// Pace atrium if ventricular timer count is above AEI value, atrial event hasn't been hit yet, and
+	// the last event was a ventricular event.
+	if (v_timer_count >= AEI_VALUE && !atrial_sense && current_event == VENTRICULAR_EVENT) {
 		send_atrial_event(true);
 	}
-
-	// Do not pace ventricle until URI
+	// Do not pace ventricle until ventricular timer count is above URI
 	if (v_timer_count >= URI_VALUE) {
-		// Ignore any ventricular events until VRP
-		// Pace ventricular if above AVI
-		if (a_timer_count >= AVI_VALUE && !ventricular_sense) {
+		// Pace ventricle if timer count is above AVI, venetricular event hasn't happened and
+		// the last event was an atrial event
+		if (a_timer_count >= AVI_VALUE && !ventricular_sense && current_event == ATRIAL_EVENT) {
 			send_ventricular_event(true);
 		}
-
-		// Pace ventricular if LRI has been hit
-		if (v_timer_count >= LRI_VALUE && !ventricular_sense) {
-			// Send Ventricular event
+		// Pace ventricle if timer count is above LRI, ventricular event hasn't happened and
+		// the last event was an atrial event
+		if (v_timer_count >= LRI_VALUE && !ventricular_sense && current_event == ATRIAL_EVENT) {
 			send_ventricular_event(true);
 		}
-
-
 	}
 }
 
-void SCCHARTS_Mode_Pacemaker() {
-
-}

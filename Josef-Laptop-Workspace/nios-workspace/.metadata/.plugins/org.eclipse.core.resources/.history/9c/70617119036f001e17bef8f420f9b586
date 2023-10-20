@@ -1,0 +1,15 @@
+/*
+ * led_control.h
+ *
+ *  Created on: 20/10/2023
+ *      Author: Jobsa
+ */
+
+#ifndef LED_CONTROL_H_
+#define LED_CONTROL_H_
+
+void clear_red_leds_0_to_9();
+
+
+
+#endif /* LED_CONTROL_H_ */

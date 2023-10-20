@@ -1,0 +1,27 @@
+/*
+ * led_control.h
+ *
+ *  Created on: 20/10/2023
+ *      Author: Jobsa
+ */
+
+#ifndef LED_CONTROL_H_
+#define LED_CONTROL_H_
+
+#include <system.h>
+#include "defines.h"
+
+void clear_red_leds_0_to_9();
+void clear_red_leds_9_to_17();
+
+void clear_green_leds_0_to_3();
+void clear_green_leds_4_to_7();
+
+void_set_red_leds_0_to_9();
+void set_red_leds_9_to_17
+
+void set_green_leds_0_to_3();
+void set_green_leds_4_to_7();
+
+
+#endif /* LED_CONTROL_H_ */

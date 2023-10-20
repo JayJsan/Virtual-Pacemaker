@@ -1,0 +1,44 @@
+/*
+ * defines.h
+ *
+ *  Created on: 20/10/2023
+ *      Author: Jobsa
+ */
+
+#ifndef DEFINES_H_
+#define DEFINES_H_
+
+#define PULSE_MODE_SWITCH 0
+#define IMPLEMENTAITON_MODE_SWITCH 1
+
+#define UART_MODE 0
+#define BUTTON_MODE 1
+
+#define C_MODE 0
+#define SCCHARTS_MODE 1
+
+#define KEY0 0
+#define KEY1 1
+
+#define LEDG0 0
+#define LEDG1 1
+#define LEDG2 2
+#define LEDG3 3
+#define LEDG4 4
+#define LEDG5 5
+#define LEDG6 6
+#define LEDG7 7
+
+#define REDG0 0
+#define LEDG1 1
+#define LEDG2 2
+#define LEDG3 3
+
+#define LED_ON_MILLISECONDS 25
+
+#define ATRIAL_EVENT 0
+#define VENTRICULAR_EVENT 1
+
+
+
+#endif /* DEFINES_H_ */

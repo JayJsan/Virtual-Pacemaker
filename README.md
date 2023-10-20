@@ -1,5 +1,7 @@
 # FPGA - Pacemaker
 
+## If nothing is happening after programming, press KEY3 to re-initialise the code.
+
 ## Switches
 
 > ### **SW0**

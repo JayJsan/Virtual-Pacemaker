@@ -1,0 +1,18 @@
+/*
+ * led_control.c
+ *
+ *  Created on: 20/10/2023
+ *      Author: Jobsa
+ */
+
+
+void clear_red_leds_0_9() {
+	int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
+
+	// CLEAR ALL BITS UP FROM LEDR0 TO LEDR8
+	for (int i = 0; i < 9; i++) {
+		led_value = led_value &= ~(1<<i);
+	}
+
+	IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
+}

@@ -1,0 +1,18 @@
+/*
+ * lcd_control.h
+ *
+ *  Created on: 20/10/2023
+ *      Author: Jobsa
+ */
+
+#ifndef LCD_CONTROL_H_
+#define LCD_CONTROL_H_
+
+#include <system.h>
+#include <stdio.h> // for NULL
+#include <stdbool.h> // for BOOL
+#include <altera_avalon_pio_regs.h> // Used for PIO functions
+
+
+
+#endif /* LCD_CONTROL_H_ */
