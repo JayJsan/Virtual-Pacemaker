@@ -227,11 +227,15 @@ int main(void)
 		switch_value = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);
 
 		// CHECK FOR PULSE MODE == CHECK FOR PULSE MODE == CHECK FOR PULSE MODE ==
+		// CHECK FOR PULSE MODE == CHECK FOR PULSE MODE == CHECK FOR PULSE MODE ==
 		set_pulse_mode_on_switch(switch_value);
+		// CHECK FOR PULSE MODE == CHECK FOR PULSE MODE == CHECK FOR PULSE MODE ==
 		// CHECK FOR PULSE MODE == CHECK FOR PULSE MODE == CHECK FOR PULSE MODE ==
 
 		// CHECK FOR IMPLEMENTATION MODE == CHECK FOR IMPLEMENTATION MODE ==
+		// CHECK FOR IMPLEMENTATION MODE == CHECK FOR IMPLEMENTATION MODE ==
 		set_implementation_mode_on_switch(switch_value);
+		// CHECK FOR IMPLEMENTATION MODE == CHECK FOR IMPLEMENTATION MODE ==
 		// CHECK FOR IMPLEMENTATION MODE == CHECK FOR IMPLEMENTATION MODE ==
 
 		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS == CHECK FOR ATRIAL AND VENTRICULAR EVENTS ==
@@ -524,11 +528,6 @@ void c_mode_pacemaker(int a_timer_count, int v_timer_count) {
 	}
 }
 
-/**
- * Sets the type of pulse mode (BUTTON or UART) depending on the current switch configuration
- * If SW0 = 0 then UART MODE
- * If SW0 = 1 then BUTTON MODE
- */
 void set_pulse_mode_on_switch(int switch_value) {
 	if (switch_value & (1 << PULSE_MODE_SWITCH)) {
 		// Set print flag when swtiched
@@ -549,11 +548,6 @@ void set_pulse_mode_on_switch(int switch_value) {
 	}
 }
 
-/**
- * Sets the type of implementation mode (C or SCCHARTS) depending on the current switch configuration
- * If SW1 = 0 then C MODE
- * If SW1 = 1 then SCCHARTS MODE
- */
 void set_implementation_mode_on_switch(int switch_value) {
 	if (switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH)) {
 		// Set switched flag for printing to LCD

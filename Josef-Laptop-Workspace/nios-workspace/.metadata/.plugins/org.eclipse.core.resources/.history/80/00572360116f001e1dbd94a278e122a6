@@ -550,9 +550,9 @@ void set_pulse_mode_on_switch(int switch_value) {
 }
 
 /**
- * Sets the type of implementation mode (C or SCCHARTS) depending on the current switch configuration
- * If SW1 = 0 then C MODE
- * If SW1 = 1 then SCCHARTS MODE
+ * Sets the type of implementation mode (BUTTON or UART) depending on the current switch configuration
+ * If SW0 = 0 then UART MODE
+ * If SW0 = 1 then BUTTON MODE
  */
 void set_implementation_mode_on_switch(int switch_value) {
 	if (switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH)) {
