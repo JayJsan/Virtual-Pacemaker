@@ -1,29 +1,19 @@
 /*
- * "Hello World" example.
+ * PACEMAKER TIMING FOR FPGA DE2-115
  *
- * This example prints 'Hello from Nios II' to the STDOUT stream. It runs on
- * the Nios II 'standard', 'full_featured', 'fast', and 'low_cost' example
- * designs. It runs with or without the MicroC/OS-II RTOS and requires a STDOUT
- * device in your system's hardware.
- * The memory footprint of this hosted application is ~69 kbytes by default
- * using the standard reference design.
- *
- * For a reduced footprint version of this template, and an explanation of how
- * to reduce the memory footprint for a given application, see the
- * "small_hello_world" template.
+ * If nothing is happening, press KEY3 to re-initialise
  *
  */
 // Remember to build the project if includes aren't working
 #include <system.h> // Used for referencing symbolic names
 #include <altera_avalon_pio_regs.h> // Used for PIO functions
 #include <altera_avalon_uart_regs.h> // Used for UART functions
-#include <stdio.h>
+#include <stdio.h> // Used for NULL
 #include <sys/alt_irq.h> // Used to register interrupts
 #include <alt_types.h> // for
-#include <string.h>
-#include <stdbool.h>
+#include <stdbool.h> // Used to get bools for code readability
 #include <sys/alt_alarm.h> // timers
-#include "sccharts.h"
+#include "sccharts.h" // Sccharts implementation
 #include "defines.h" // Includes quality-of-life variable changes
 #include "timing.h" // Timeout values expected in MILLISECONDS
 #include "led_control.h" // User-Defined LED Control functions
@@ -55,7 +45,7 @@ bool v_sense_led_timer_already_started = false;
 
 bool print_flag = false;
 bool pulse_switched_flag = false;
-bool implementation_switched_flag = false;
+bool implementation_switched_flag = true;
 
 int current_event = ATRIAL_EVENT;
 
@@ -78,28 +68,23 @@ void buttons_interrupts_function(void* context, alt_u32 id)
 
 
 	if ((*temp_button_value & (1 << KEY1))) {
-		//printf("KEY0 : ATRIAL EVENT!\n");
 		send_atrial_event(false);
-		printf("Atrium Manually Sent!\n");
+		//printf("Atrium Manually Sent!\n"); -- DEBUGGING PURPOSES
 	}
 
 	if ((*temp_button_value & (1 << KEY0))) {
-		//printf("KEY1 : VENTRICULAR EVENT!\n");
-
 		send_ventricular_event(false);
-		printf("Ventricular Manually Sent!\n");
-
-
+		//printf("Ventricular Manually Sent!\n"); -- DEBUGGING PURPOSES
 	}
 
+	/* -- DEBUGGING PURPOSES
 	if ((*temp_button_value & (1 << 2))) {
 		// reset leds -- DEBUGGING / CLEAR EVENTS
 		atrial_event = false;
 		ventricular_event = false;
 		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0);
 	}
-
-	//printf("button pressed: %i\n", *temp_button_value); DEBUGGING PURPOSES
+	*/
 }
 
 alt_u32 a_pace_led_timer_isr_function(void* context) {
@@ -112,31 +97,29 @@ alt_u32 v_pace_led_timer_isr_function(void* context) {
 	return LED_ON_MILLISECONDS;
 }
 
-alt_u32 a_sense_led_timer_isr_function(void* contxet) {
+alt_u32 a_sense_led_timer_isr_function(void* context) {
 	led_sense_atrial_event = false;
 	return LED_ON_MILLISECONDS;
 }
 
-alt_u32 v_sense_led_timer_isr_function(void* contxet) {
+alt_u32 v_sense_led_timer_isr_function(void* context) {
 	led_sense_ventricular_event = false;
 	return LED_ON_MILLISECONDS;
 }
 
 void uart_read_isr_function(void* context, alt_u32 id)
 {
-	// if we are NOT in UART MODE then exit early;
-
 	char temp;
 	temp = IORD_ALTERA_AVALON_UART_RXDATA(UART_BASE);
 
+	// if we are NOT in UART MODE then exit early;
 	if (pulse_mode == BUTTON_MODE) {
-
 		if (atrial_event) {
-			printf("Atrial Transmitted to UART!\n");
+			//printf("Atrial Transmitted to UART!\n"); -- DEBUGGING PURPOSES
 		}
 
 		if (ventricular_event) {
-			printf("Ventricular Transmitted to UART!\n");
+			//printf("Ventricular Transmitted to UART!\n"); -- DEBUGGING PURPOSES
 		}
 		return;
 	}
@@ -147,7 +130,6 @@ void uart_read_isr_function(void* context, alt_u32 id)
 	if (temp == 'V') {
 		send_ventricular_event(false);
 	}
-	//printf("UART read: %c\n", temp);
 }
 
 alt_u32 a_events_timer_isr_function(void* context) {
@@ -245,27 +227,16 @@ int main(void)
 		// Get switch state from switch peripheral (returns a binary)
 		switch_value = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);
 
+		// CHECK FOR PULSE MODE == CHECK FOR PULSE MODE == CHECK FOR PULSE MODE ==
+		// CHECK FOR PULSE MODE == CHECK FOR PULSE MODE == CHECK FOR PULSE MODE ==
+		set_pulse_mode_on_switch(switch_value);
+		// CHECK FOR PULSE MODE == CHECK FOR PULSE MODE == CHECK FOR PULSE MODE ==
+		// CHECK FOR PULSE MODE == CHECK FOR PULSE MODE == CHECK FOR PULSE MODE ==
 
-		// ========= 	  PULSE MODES 	  =========
-		if (switch_value & (1 << PULSE_MODE_SWITCH)) {
-			if (!pulse_switched_flag) {
-				pulse_switched_flag = true;
-				print_flag = true;
-			}
-			// SW0 is ON
-			pulse_mode = BUTTON_MODE;
-		} else if (!(switch_value & (1 << PULSE_MODE_SWITCH))) {
-			if (pulse_switched_flag) {
-				pulse_switched_flag = false;
-				print_flag = true;
-			}
-			// SW0 is OFF
-			pulse_mode = UART_MODE;
-		}
-		// ========= 	  PULSE MODES 	  =========
-
-		// ========= IMPLEMENTATION MODES =========
+		// CHECK FOR IMPLEMENTATION MODE == CHECK FOR IMPLEMENTATION MODE ==
+		// CHECK FOR IMPLEMENTATION MODE == CHECK FOR IMPLEMENTATION MODE ==
 		if (switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH)) {
+			// Set switched flag for printing to LCD
 			if (!implementation_switched_flag) {
 				implementation_switched_flag = true;
 				print_flag = true;
@@ -273,6 +244,7 @@ int main(void)
 			// SW1 is ON
 			implementation_mode = SCCHARTS_MODE;
 		} else if (!(switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH))) {
+			// Set switched flag for printing to LCD
 			if (implementation_switched_flag) {
 				implementation_switched_flag = false;
 				print_flag = true;
@@ -280,14 +252,16 @@ int main(void)
 			// SW1 is OFF
 			implementation_mode = C_MODE;
 		}
-		// ========= IMPLEMENTATION MODES =========
+		// CHECK FOR IMPLEMENTATION MODE == CHECK FOR IMPLEMENTATION MODE ==
+		// CHECK FOR IMPLEMENTATION MODE == CHECK FOR IMPLEMENTATION MODE ==
 
-		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
-		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
+		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS == CHECK FOR ATRIAL AND VENTRICULAR EVENTS ==
+		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS == CHECK FOR ATRIAL AND VENTRICULAR EVENTS ==
 		if (atrial_event) {
-			printf("\n");
 			atrial_event = false; // COULD BE A PROBLEM?
-			// If we are in C_Mode, restart timer
+			// Reset timer if atrial event is sensed after PVARP
+			// Atrial sense is when a valid atrial event happens
+			// (happening after PVARP and last event as an ventricular event)
 			if (implementation_mode == C_MODE) {
 				if (v_timer_count >= PVARP_VALUE && current_event == VENTRICULAR_EVENT) {
 					current_event = ATRIAL_EVENT;
@@ -302,31 +276,25 @@ int main(void)
 					data.AS = 0;
 				}
 			}
-
 			if (a_is_paced) {
 				led_pace_atrial_event = true;
 				atrial_sense_paced = true;
-				printf("Atrial Sensed! - Paced!\n");
+				//printf("Atrial Sensed! - Paced!\n"); -- DEBUGGING
 			} else {
 				led_sense_atrial_event = true;
 				atrial_sense_paced = false;
-				printf("Atrial Sensed! - Not Paced\n");
+				//printf("Atrial Sensed! - Not Paced\n"); -- DEBUGGING
 			}
-
-			//atrial_sense = true;
-
 			a_is_paced = false;
 		}
-
 		if (ventricular_event) {
 			ventricular_event = false;
-
-			// do stuff
-			// If we are in C_Mode, restart timer
 			if (implementation_mode == C_MODE) {
-				// Reset timer if v is sensed after VRP
+				// Reset timer if ventricular event is sensed after VRP
+				// Ventricular sense is when a valid ventricular event happens
+				// (happening after VRP and last event as an atrial event)
 				if (v_timer_count >= VRP_VALUE && current_event == ATRIAL_EVENT) {
-					printf("Valid Ventricle Sense!\n");
+					//printf("Valid Ventricle Sense!\n"); - DEBUGGING
 					current_event = VENTRICULAR_EVENT;
 					ventricular_sense = true;
 					atrial_sense = false;
@@ -341,34 +309,27 @@ int main(void)
 					data.VS = 0;
 				}
 			}
-
 			if (v_is_paced) {
 				led_pace_ventricular_event = true;
 				ventricular_sense_paced = true;
-				printf("Ventricle Sensed! -- Paced\n");
+				//printf("Ventricle Sensed! -- Paced\n"); -- DEBUGGING PURPOSES
 			} else {
 				led_sense_ventricular_event = true;
 				ventricular_sense_paced = false;
-				printf("Ventricle Sensed! -- Not Paced\n");
+				//printf("Ventricle Sensed! -- Not Paced\n"); -- DEBUGGING PURPOSES
 			}
-
-
 			if (!ventricular_sense) {
 				led_pace_ventricular_event = false;
 				led_sense_ventricular_event = false;
 			}
-
-
 			v_is_paced = false;
-
 		}
-		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
-		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS -- SENSING
+		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS == CHECK FOR ATRIAL AND VENTRICULAR EVENTS ==
+		// CHECK FOR ATRIAL AND VENTRICULAR EVENTS == CHECK FOR ATRIAL AND VENTRICULAR EVENTS ==
 
-		// IMPLEMENTATION
-		// IMPLEMENTATION
-
-
+		// IMPLEMENTATION MODE == IMPLEMENTATION MODE == IMPLEMENTATION MODE ==
+		// IMPLEMENTATION MODE == IMPLEMENTATION MODE == IMPLEMENTATION MODE ==
+		// Execute respective pacemaker timing depending on current implementation mode
 		if (implementation_mode == C_MODE) {
 			c_mode_pacemaker(a_timer_count, v_timer_count);
 		} else if (implementation_mode == SCCHARTS_MODE) {
@@ -377,6 +338,7 @@ int main(void)
 			int a_test = data.AP;
 			int v_test = data.VP;
 
+			// Send respective pace events if AP or VP are true
 			if (a_test) {
 				send_atrial_event(true);
 			}
@@ -384,110 +346,80 @@ int main(void)
 				send_ventricular_event(true);
 			}
 		}
-
-
-		// IMPLEMENTATION
-		// IMPLEMENTATION
-
+		// IMPLEMENTATION MODE == IMPLEMENTATION MODE == IMPLEMENTATION MODE ==
+		// IMPLEMENTATION MODE == IMPLEMENTATION MODE == IMPLEMENTATION MODE ==
 
 		// PACE LEDS == PACE LEDS == PACE LEDS == PACE LEDS ==
 		// PACE LEDS == PACE LEDS == PACE LEDS == PACE LEDS ==
+		// Set left side of GREEN LEDs on atrial pace event
 		if (led_pace_atrial_event) {
+			// LEDs active delay logic
 			if (!a_pace_led_timer_already_started) {
 				alt_alarm_stop(&a_pace_led_timer);
 				alt_alarm_start(&a_pace_led_timer, LED_ON_MILLISECONDS, a_pace_led_timer_isr_function, NULL);
 				a_pace_led_timer_already_started = true;
 			}
-			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
-
+			// Sets GREEN PACE LEDs depending on implementation mode
 			if (implementation_mode == C_MODE) {
-				// SET ALL BITS UP FROM LEDG4 TO LEDG7
-				for (int i = LEDG4; i < LEDG7 + 1; i++) {
-					led_value = led_value |= (1<<i);
-				}
+				set_green_leds_x_to_x(LEDG4, LEDG7);
 			} else if (implementation_mode == SCCHARTS_MODE) {
-				for (int i = LEDG4; i < LEDG7 + 1; i += 2) {
-					led_value = led_value |= (1<<i);
-				}
+				set_half_green_leds_x_to_x(LEDG4, LEDG7);
 			}
-
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
-
 		}
-
+		// Set right side of GREEN LEDs on ventricular pace event
 		if (led_pace_ventricular_event) {
 			if (!v_pace_led_timer_already_started) {
+				// LEDs active delay logic
 				alt_alarm_stop(&v_pace_led_timer);
 				alt_alarm_start(&v_pace_led_timer, LED_ON_MILLISECONDS, v_pace_led_timer_isr_function, NULL);
 				v_pace_led_timer_already_started = true;
 			}
-			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
-
+			// Sets GREEN PACE LEDs depending on implementation mode
 			if (implementation_mode == C_MODE) {
-				// SET ALL BITS UP FROM LEDG0 TO LEDG3
-				for (int i = LEDG0; i < LEDG3 + 1; i++) {
-					led_value = led_value |= (1<<i);
-				}
+				set_green_leds_x_to_x(LEDG0, LEDG3);
 			} else if (implementation_mode == SCCHARTS_MODE) {
-				for (int i = LEDG0; i < LEDG3 + 1; i += 2) {
-					led_value = led_value |= (1<<i);
-				}
+				set_half_green_leds_x_to_x(LEDG0, LEDG3);
 			}
 
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
-
 		}
-		// PACE LEDS == PACE LEDS == PACE LEDS == PACE LEDS ==
-		// PACE LEDS == PACE LEDS == PACE LEDS == PACE LEDS ==
+		// PACE GREEN LEDS == PACE GREEN LEDS == PACE GREEN LEDS == PACE GREEN LEDS == PACE GREEN LEDS ==
+		// PACE GREEN LEDS == PACE GREEN LEDS == PACE GREEN LEDS == PACE GREEN LEDS == PACE GREEN LEDS ==
 
-		// SENSE LEDS == SENSE LEDS == SENSE LEDS == SENSE LEDS ==
+		// SENSE RED LED IMPLENENTATION == SENSE RED LED IMPLENENTATION ==SENSE RED LED IMPLENENTATION ==
+		// SENSE RED LED IMPLENENTATION == SENSE RED LED IMPLENENTATION ==SENSE RED LED IMPLENENTATION ==
+		// Set left side of RED LEDs when atrial event is sensed
 		if (led_sense_atrial_event) {
+			// LEDs active delay logic
 			if (!a_sense_led_timer_already_started) {
 				alt_alarm_stop(&a_sense_led_timer);
 				alt_alarm_start(&a_sense_led_timer, LED_ON_MILLISECONDS, a_sense_led_timer_isr_function, NULL);
 				a_sense_led_timer_already_started = true;
 			}
-			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
-
+			// Sets RED SENSE LEDs depending on implementation mode
 			if (implementation_mode == C_MODE) {
-				// SET ALL BITS UP FROM LEDG0 TO LEDG3
-				for (int i = 9; i < 18; i++) {
-					led_value = led_value |= (1<<i);
-				}
+				set_red_leds_x_to_x(LEDR9, LEDR17);
 			} else if (implementation_mode == SCCHARTS_MODE) {
-				for (int i = 9; i < 18; i += 2) {
-					led_value = led_value |= (1<<i);
-				}
+				set_half_red_leds_x_to_x(LEDR9, LEDR17);
 			}
-
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
-
 		}
-
+		// Set right side of RED LEDs when ventricular event is sensed
 		if (led_sense_ventricular_event) {
+			// LEDs active delay logic
 			if (!v_sense_led_timer_already_started) {
 				alt_alarm_stop(&v_sense_led_timer);
 				alt_alarm_start(&v_sense_led_timer, LED_ON_MILLISECONDS, v_sense_led_timer_isr_function, NULL);
 				v_sense_led_timer_already_started = true;
 			}
-
-			int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
-
+			// Sets RED SENSE LEDs depending on implementation mode
 			if (implementation_mode == C_MODE) {
-				// SET ALL BITS UP FROM LEDG0 TO LEDG3
-				for (int i = 0; i < 9; i++) {
-					led_value = led_value |= (1<<i);
-				}
+				set_red_leds_x_to_x(LEDR0, LEDR8);
 			} else if (implementation_mode == SCCHARTS_MODE) {
-				for (int i = 0; i < 9; i += 2) {
-					led_value = led_value |= (1<<i);
-				}
+				set_half_red_leds_x_to_x(LEDR0, LEDR8);
 			}
-
-
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
-
 		}
+		// SENSE RED LED IMPLENENTATION == SENSE RED LED IMPLENENTATION ==SENSE RED LED IMPLENENTATION ==
+		// SENSE RED LED IMPLENENTATION == SENSE RED LED IMPLENENTATION ==SENSE RED LED IMPLENENTATION ==
+
 		// LCD IMPLEMENTATION == LCD IMPLEMENTATION == LCD IMPLEMENTATION == LCD IMPLEMENTATION ==
 		// LCD IMPLEMENTATION == LCD IMPLEMENTATION == LCD IMPLEMENTATION == LCD IMPLEMENTATION ==
 		if (lcd != NULL) {
@@ -554,13 +486,13 @@ void clear_pace_led_events() {
 	if (!led_pace_atrial_event) {
 		a_pace_led_timer_already_started = false;
 		// Call clear relevant green LEDs function from led_control.c
-		clear_green_leds_4_to_7();
+		clear_green_leds_x_to_x(LEDG4, LEDG7);
 	}
 	// If LED flag for atrial pace is no longer on, clear LEDs
 	if (!led_pace_ventricular_event) {
 		v_pace_led_timer_already_started = false;
 		// Call clear relevant green LEDs function from led_control.c
-		clear_green_leds_0_to_3();
+		clear_green_leds_x_to_x(LEDG0, LEDG3);
 	}
 }
 
@@ -572,13 +504,13 @@ void clear_sense_led_events() {
 	if (!led_sense_atrial_event) {
 		a_sense_led_timer_already_started = false;
 		// Call clear relevant red LEDs function from led_control.c
-		clear_red_leds_9_to_17();
+		clear_red_leds_x_to_x(LEDR9, LEDR17);
 	}
 	// If LED flag for ventricular sense is no longer on, clear LEDs
 	if (!led_sense_ventricular_event) {
 		v_sense_led_timer_already_started = false;
 		// Call clear relevant red LEDs function from led_control.c
-		clear_red_leds_0_to_8();
+		clear_red_leds_x_to_x(LEDR0, LEDR8);
 	}
 }
 
@@ -610,6 +542,26 @@ void c_mode_pacemaker(int a_timer_count, int v_timer_count) {
 		if (v_timer_count >= LRI_VALUE && !ventricular_sense && current_event == ATRIAL_EVENT) {
 			send_ventricular_event(true);
 		}
+	}
+}
+
+void set_pulse_mode_on_switch(int switch_value) {
+	if (switch_value & (1 << PULSE_MODE_SWITCH)) {
+		// Set print flag when swtiched
+		if (!pulse_switched_flag) {
+			pulse_switched_flag = true;
+			print_flag = true;
+		}
+		// SW0 is ON
+		pulse_mode = BUTTON_MODE;
+	} else if (!(switch_value & (1 << PULSE_MODE_SWITCH))) {
+		// Set print flag when switched
+		if (pulse_switched_flag) {
+			pulse_switched_flag = false;
+			print_flag = true;
+		}
+		// SW0 is OFF
+		pulse_mode = UART_MODE;
 	}
 }
 

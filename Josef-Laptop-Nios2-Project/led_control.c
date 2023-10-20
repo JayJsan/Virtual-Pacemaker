@@ -12,57 +12,75 @@
 #include "defines.h"
 
 /**
- * Clears the RED LEDs from LEDR0 to LEDR8
+ * Clears the RED LEDs from LEDRX1 to LEDRX2
  */
-void clear_red_leds_0_to_8() {
+void clear_red_leds_x_to_x(int LEDRX1, int LEDRX2) {
 	int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
 	// CLEAR ALL BITS UP FROM LEDR0 TO LEDR8
-	for (int i = 0; i < 9; i++) {
+	for (int i = LEDRX1; i < LEDRX2 + 1; i++) {
 		led_value = led_value &= ~(1<<i);
 	}
-
 	IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
 }
 
 /**
- *  Clears the RED LEDs from LEDR9 to LEDR17
+ * Clears the GREEN LEDs from LEDGX1 to LEDGX2
  */
-void clear_red_leds_9_to_17() {
+void clear_green_leds_x_to_x(int LEDGX1, int LEDGX2) {
+	int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
+	// CLEAR ALL BITS UP FROM LEDR0 TO LEDR8
+	for (int i = LEDGX1; i < LEDGX2 + 1; i++) {
+		led_value = led_value &= ~(1<<i);
+	}
+	IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
+}
+
+
+/**
+ * Sets the RED LEDs from LEDR0 to LEDR8 to HIGH
+ */
+void set_red_leds_x_to_x(int LEDRX1, int LEDRX2) {
 	int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
-	// CLEAR ALL BITS UP FROM LEDR9 TO LEDR17
-	for (int i = 9; i < 18; i++) {
-		led_value = led_value &= ~(1<<i);
+	// SET ALL BITS UP FROM LEDR0 TO LEDR8
+	for (int i = LEDRX1; i < LEDRX2 + 1; i++) {
+		led_value = led_value |= (1<<i);
 	}
 	IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
 }
 
 /**
- * Clears the GREEN LEDs from LEDG0 to LEDG3
+ * Sets every second RED LEDs from LEDR0 to LEDR8 to HIGH
  */
-void clear_green_leds_0_to_3() {
+void set_half_red_leds_x_to_x(int LEDRX1, int LEDRX2) {
+	int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE);
+	// SET EVERY SECOND BIT UP FROM LEDR0 TO LEDR8
+	for (int i = LEDRX1; i < LEDRX2; i += 2) {
+		led_value = led_value |= (1<<i);
+	}
+	IOWR_ALTERA_AVALON_PIO_DATA(LEDS_RED_BASE, led_value);
+}
+
+/**
+ * Sets the GREEN LEDs from LEDR0 to LEDR8 to HIGH
+ */
+void set_green_leds_x_to_x(int LEDGX1, int LEDGX2) {
 	int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
-	// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
-	for (int i = LEDG0; i < LEDG3 + 1; i++) {
-		led_value = led_value &= ~(1<<i);
+	// SET ALL BITS UP FROM LEDR0 TO LEDR8
+	for (int i = LEDGX1; i < LEDGX2 + 1; i++) {
+		led_value = led_value |= (1<<i);
 	}
 	IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
 }
 
 /**
- * Clears the GREEN LEDs from LEDG0 to LEDG3
+ * Sets every second RED LEDs from LEDR0 to LEDR8 to HIGH
  */
-void clear_green_leds_4_to_7() {
+void set_half_green_leds_x_to_x(int LEDGX1, int LEDGX2) {
 	int led_value = IORD_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE);
-	// CLEAR ALL BITS UP FROM LEDG0 TO LEDG3
-	for (int i = LEDG4; i < LEDG7 + 1; i++) {
-		led_value = led_value &= ~(1<<i);
+	// SET EVERY SECOND BIT UP FROM LEDR0 TO LEDR8
+	for (int i = LEDGX1; i < LEDGX2; i += 2) {
+		led_value = led_value |= (1<<i);
 	}
 	IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, led_value);
 }
 
-/**
- * Sets the GREEN LEDs from LEDG0 to LEDG3 to HIGH
- */
-void set_green_leds_0_to_3() {
-
-}

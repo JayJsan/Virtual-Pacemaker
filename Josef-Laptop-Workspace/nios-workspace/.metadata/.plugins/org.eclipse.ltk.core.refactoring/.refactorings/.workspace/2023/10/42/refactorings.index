@@ -3,3 +3,6 @@
 1697514171282	Delete resource 'pacemaker_c_implementation/Buttons.c'
 1697514189502	Delete resource 'pacemaker_c_implementation/timer_irq.c'
 1697778340789	Delete resource 'pacemaker_c_implementation/lcd_control'
+1697782401346	Delete resource 'pacemaker_c_implementation/buttons_test.c'
+1697782411185	Delete resource 'pacemaker_c_implementation/switches.c'
+1697782420651	Delete resource 'pacemaker_c_implementation/uart_test.c'

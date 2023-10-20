@@ -29,6 +29,25 @@
 #define LEDG6 6
 #define LEDG7 7
 
+#define LEDR0 0
+#define LEDR1 1
+#define LEDR2 2
+#define LEDR3 3
+#define LEDR4 4
+#define LEDR5 5s
+#define LEDR6 6
+#define LEDR7 7
+#define LEDR8 8
+#define LEDR9 9
+#define LEDR10 10
+#define LEDR11 11
+#define LEDR12 12
+#define LEDR13 13
+#define LEDR14 14
+#define LEDR15 15
+#define LEDR16 16
+#define LEDR17 17
+
 #define LED_ON_MILLISECONDS 25
 
 #define ATRIAL_EVENT 0
