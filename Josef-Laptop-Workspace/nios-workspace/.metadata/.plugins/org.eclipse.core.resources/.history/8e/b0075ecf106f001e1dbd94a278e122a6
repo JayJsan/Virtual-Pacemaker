@@ -235,6 +235,7 @@ int main(void)
 		// CHECK FOR IMPLEMENTATION MODE == CHECK FOR IMPLEMENTATION MODE ==
 		// CHECK FOR IMPLEMENTATION MODE == CHECK FOR IMPLEMENTATION MODE ==
 		set_implementation_mode_on_switch(switch_value);
+
 		// CHECK FOR IMPLEMENTATION MODE == CHECK FOR IMPLEMENTATION MODE ==
 		// CHECK FOR IMPLEMENTATION MODE == CHECK FOR IMPLEMENTATION MODE ==
 
@@ -545,26 +546,6 @@ void set_pulse_mode_on_switch(int switch_value) {
 		}
 		// SW0 is OFF
 		pulse_mode = UART_MODE;
-	}
-}
-
-void set_implementation_mode_on_switch(int switch_value) {
-	if (switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH)) {
-		// Set switched flag for printing to LCD
-		if (!implementation_switched_flag) {
-			implementation_switched_flag = true;
-			print_flag = true;
-		}
-		// SW1 is ON
-		implementation_mode = SCCHARTS_MODE;
-	} else if (!(switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH))) {
-		// Set switched flag for printing to LCD
-		if (implementation_switched_flag) {
-			implementation_switched_flag = false;
-			print_flag = true;
-		}
-		// SW1 is OFF
-		implementation_mode = C_MODE;
 	}
 }
 

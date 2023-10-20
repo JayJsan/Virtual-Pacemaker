@@ -885,3 +885,96 @@ Info: Building C:/Projects/University/303-Assignment/pacemaker_c_implementation_
 C:/intelFPGA_lite/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C C:/Projects/University/303-Assignment/pacemaker_c_implementation_bsp/
 [BSP build complete]
 [pacemaker_c_implementation build complete]
+19:21:52 **** Build of configuration Nios II for project pacemaker_c_implementation ****
+make all 
+Info: Building C:/Projects/University/303-Assignment/pacemaker_c_implementation_bsp/
+C:/intelFPGA_lite/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C C:/Projects/University/303-Assignment/pacemaker_c_implementation_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -IC:/Projects/University/303-Assignment/pacemaker_c_implementation_bsp//HAL/inc -IC:/Projects/University/303-Assignment/pacemaker_c_implementation_bsp/ -IC:/Projects/University/303-Assignment/pacemaker_c_implementation_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mhw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+main.c: In function 'buttons_interrupts_function':
+main.c:70:3: warning: implicit declaration of function 'send_atrial_event' [-Wimplicit-function-declaration]
+   send_atrial_event(false);
+   ^
+main.c:75:3: warning: implicit declaration of function 'send_ventricular_event' [-Wimplicit-function-declaration]
+   send_ventricular_event(false);
+   ^
+main.c: In function 'main':
+main.c:179:2: warning: implicit declaration of function 'alt_irq_register' [-Wimplicit-function-declaration]
+  alt_irq_register(KEYS_IRQ, button_context, buttons_interrupts_function);
+  ^
+main.c:231:3: warning: implicit declaration of function 'set_pulse_mode_on_switch' [-Wimplicit-function-declaration]
+   set_pulse_mode_on_switch(switch_value);
+   ^
+main.c:237:3: warning: implicit declaration of function 'set_implementation_mode_on_switch' [-Wimplicit-function-declaration]
+   set_implementation_mode_on_switch(switch_value);
+   ^
+main.c:317:4: warning: implicit declaration of function 'c_mode_pacemaker' [-Wimplicit-function-declaration]
+    c_mode_pacemaker(a_timer_count, v_timer_count);
+    ^
+main.c:414:5: warning: implicit declaration of function 'print_modes_to_lcd' [-Wimplicit-function-declaration]
+     print_modes_to_lcd(lcd, implementation_mode, pulse_mode);
+     ^
+main.c:422:3: warning: implicit declaration of function 'clear_pace_led_events' [-Wimplicit-function-declaration]
+   clear_pace_led_events();
+   ^
+main.c:423:3: warning: implicit declaration of function 'clear_sense_led_events' [-Wimplicit-function-declaration]
+   clear_sense_led_events();
+   ^
+main.c: At top level:
+main.c:434:6: warning: conflicting types for 'send_atrial_event'
+ void send_atrial_event(bool isThisEventPaced) {
+      ^
+main.c:70:3: note: previous implicit declaration of 'send_atrial_event' was here
+   send_atrial_event(false);
+   ^
+main.c:452:6: warning: conflicting types for 'send_ventricular_event'
+ void send_ventricular_event(bool isThisEventPaced) {
+      ^
+main.c:75:3: note: previous implicit declaration of 'send_ventricular_event' was here
+   send_ventricular_event(false);
+   ^
+main.c:467:6: warning: conflicting types for 'clear_pace_led_events'
+ void clear_pace_led_events() {
+      ^
+main.c:422:3: note: previous implicit declaration of 'clear_pace_led_events' was here
+   clear_pace_led_events();
+   ^
+main.c:485:6: warning: conflicting types for 'clear_sense_led_events'
+ void clear_sense_led_events() {
+      ^
+main.c:423:3: note: previous implicit declaration of 'clear_sense_led_events' was here
+   clear_sense_led_events();
+   ^
+main.c:510:6: warning: conflicting types for 'c_mode_pacemaker'
+ void c_mode_pacemaker(int a_timer_count, int v_timer_count) {
+      ^
+main.c:317:4: note: previous implicit declaration of 'c_mode_pacemaker' was here
+    c_mode_pacemaker(a_timer_count, v_timer_count);
+    ^
+main.c:531:6: warning: conflicting types for 'set_pulse_mode_on_switch'
+ void set_pulse_mode_on_switch(int switch_value) {
+      ^
+main.c:231:3: note: previous implicit declaration of 'set_pulse_mode_on_switch' was here
+   set_pulse_mode_on_switch(switch_value);
+   ^
+main.c:551:6: warning: conflicting types for 'set_implementation_mode_on_switch'
+ void set_implementation_mode_on_switch(int switch_value) {
+      ^
+main.c:237:3: note: previous implicit declaration of 'set_implementation_mode_on_switch' was here
+   set_implementation_mode_on_switch(switch_value);
+   ^
+Info: Linking pacemaker_c_implementation.elf
+nios2-elf-g++  -T'C:/Projects/University/303-Assignment/pacemaker_c_implementation_bsp//linker.x' -msys-crt0='C:/Projects/University/303-Assignment/pacemaker_c_implementation_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -LC:/Projects/University/303-Assignment/pacemaker_c_implementation_bsp/   -Wl,-Map=pacemaker_c_implementation.map   -O0 -g -Wall   -mno-hw-div -mhw-mul -mno-hw-mulx -mgpopt=global  -o pacemaker_c_implementation.elf obj/default/lcd_control.o obj/default/led_control.o obj/default/main.o obj/default/sccharts.o -lm -msys-lib=m
+nios2-elf-insert pacemaker_c_implementation.elf --thread_model hal --cpu_name cpu --qsys true --simulation_enabled false --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name nios2_system --quartus_project_dir "c:/Projects/University/303-Assignment/Lab1/Lab-1" --sopcinfo C:/Projects/University/303-Assignment/Lab1/Lab-1/nios2_system.sopcinfo
+Info: (pacemaker_c_implementation.elf) 100 KBytes program size (code + initialized data).
+Info:                                  8084 KBytes free for stack + heap.
+Info: Creating pacemaker_c_implementation.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source pacemaker_c_implementation.elf >pacemaker_c_implementation.objdump
+[pacemaker_c_implementation build complete]
+19:21:54 **** Incremental Build of configuration Nios II for project pacemaker_c_implementation ****
+make all 
+Info: Building C:/Projects/University/303-Assignment/pacemaker_c_implementation_bsp/
+C:/intelFPGA_lite/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C C:/Projects/University/303-Assignment/pacemaker_c_implementation_bsp/
+[BSP build complete]
+[pacemaker_c_implementation build complete]
