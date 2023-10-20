@@ -25,8 +25,13 @@
 #include <stdbool.h>
 #include <sys/alt_alarm.h> // timers
 #include "sccharts.h"
-
-#include "timing.h" // Timeout values expected in MILLISECONDS
+// Timeout values expected in MILLISECONDS
+#define AVI_VALUE 300
+#define AEI_VALUE 800
+#define PVARP_VALUE 50
+#define VRP_VALUE 150
+#define LRI_VALUE 950
+#define URI_VALUE 900
 
 #define PULSE_MODE_SWITCH 0
 #define IMPLEMENTAITON_MODE_SWITCH 1

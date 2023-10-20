@@ -26,7 +26,8 @@
 #include <sys/alt_alarm.h> // timers
 #include "sccharts.h"
 
-#include "timing.h" // Timeout values expected in MILLISECONDS
+// Timeout values expected in MILLISECONDS
+#include "timing.h"
 
 #define PULSE_MODE_SWITCH 0
 #define IMPLEMENTAITON_MODE_SWITCH 1

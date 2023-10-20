@@ -24,7 +24,7 @@
 >
 > #### - PRESS = PACE VENTRICLE
 
-> ### **KEY0**
+> ### **KEY3**
 >
 > #### - PRESS = RESTART MAIN LOOP
 

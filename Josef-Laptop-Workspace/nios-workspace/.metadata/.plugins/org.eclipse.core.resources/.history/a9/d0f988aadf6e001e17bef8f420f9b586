@@ -25,8 +25,13 @@
 #include <stdbool.h>
 #include <sys/alt_alarm.h> // timers
 #include "sccharts.h"
-
-#include "timing.h" // Timeout values expected in MILLISECONDS
+// Timeout values expected in MILLISECONDS
+#define AVI_VALUE 300
+#define AEI_VALUE 800
+#define PVARP_VALUE 50
+#define VRP_VALUE 150
+#define LRI_VALUE 950
+#define URI_VALUE 900
 
 #define PULSE_MODE_SWITCH 0
 #define IMPLEMENTAITON_MODE_SWITCH 1
@@ -289,15 +294,15 @@ int main(void)
 
 		// ========= IMPLEMENTATION MODES =========
 		if (switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH)) {
-			if (!implementation_switched_flag) {
-				implementation_switched_flag = true;
+			if (!switched_flag) {
+				switched_flag = true;
 				print_flag = true;
 			}
 			// SW1 is ON
 			implementation_mode = SCCHARTS_MODE;
 		} else if (!(switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH))) {
-			if (implementation_switched_flag) {
-				implementation_switched_flag = false;
+			if (!switched_flag) {
+				switched_flag = false;
 				print_flag = true;
 			}
 			// SW1 is OFF
@@ -542,7 +547,7 @@ int main(void)
 				if (pulse_mode == UART_MODE) {
 					fprintf(lcd, "PULSE MODE: UART\n");
 				}
-				else if (pulse_mode == BUTTON_MODE) {
+				else if (implementation_mode == BUTTON_MODE) {
 					fprintf(lcd, "PULSE MODE: BUTTON\n");
 				}
 			}

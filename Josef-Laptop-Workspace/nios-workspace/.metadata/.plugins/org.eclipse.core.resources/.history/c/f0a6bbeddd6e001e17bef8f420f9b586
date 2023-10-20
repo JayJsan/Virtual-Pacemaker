@@ -25,8 +25,13 @@
 #include <stdbool.h>
 #include <sys/alt_alarm.h> // timers
 #include "sccharts.h"
-
-#include "timing.h" // Timeout values expected in MILLISECONDS
+// Timeout values expected in MILLISECONDS
+#define AVI_VALUE 300
+#define AEI_VALUE 800
+#define PVARP_VALUE 50
+#define VRP_VALUE 150
+#define LRI_VALUE 950
+#define URI_VALUE 900
 
 #define PULSE_MODE_SWITCH 0
 #define IMPLEMENTAITON_MODE_SWITCH 1
@@ -75,10 +80,6 @@ bool v_pace_led_timer_already_started = false;
 
 bool a_sense_led_timer_already_started = false;
 bool v_sense_led_timer_already_started = false;
-
-bool print_flag = false;
-bool pulse_switched_flag = false;
-bool implementation_switched_flag = false;
 
 int a_timer_count = 0;
 int v_timer_count = 0;
@@ -271,17 +272,9 @@ int main(void)
 
 		// ========= 	  PULSE MODES 	  =========
 		if (switch_value & (1 << PULSE_MODE_SWITCH)) {
-			if (!pulse_switched_flag) {
-				pulse_switched_flag = true;
-				print_flag = true;
-			}
 			// SW0 is ON
 			pulse_mode = BUTTON_MODE;
 		} else if (!(switch_value & (1 << PULSE_MODE_SWITCH))) {
-			if (pulse_switched_flag) {
-				pulse_switched_flag = false;
-				print_flag = true;
-			}
 			// SW0 is OFF
 			pulse_mode = UART_MODE;
 		}
@@ -289,17 +282,9 @@ int main(void)
 
 		// ========= IMPLEMENTATION MODES =========
 		if (switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH)) {
-			if (!implementation_switched_flag) {
-				implementation_switched_flag = true;
-				print_flag = true;
-			}
 			// SW1 is ON
 			implementation_mode = SCCHARTS_MODE;
 		} else if (!(switch_value & (1 << IMPLEMENTAITON_MODE_SWITCH))) {
-			if (implementation_switched_flag) {
-				implementation_switched_flag = false;
-				print_flag = true;
-			}
 			// SW1 is OFF
 			implementation_mode = C_MODE;
 		}
@@ -525,26 +510,14 @@ int main(void)
 
 		// LCD PRINT
 		if (lcd != NULL) {
-			if (print_flag) {
-				print_flag = false;
-
-				#define ESC 27
-				#define CLEAR_LCD_STRING "[2J"
-
-				fprintf(lcd, "%c%s", ESC, CLEAR_LCD_STRING);
-				if (implementation_mode == C_MODE) {
-					fprintf(lcd, "IMPL MODE: C\n");
-				}
-				else if (implementation_mode == SCCHARTS_MODE) {
-					fprintf(lcd, "IMPL MODE: SCCHARTS\n");
-				}
-
-				if (pulse_mode == UART_MODE) {
-					fprintf(lcd, "PULSE MODE: UART\n");
-				}
-				else if (pulse_mode == BUTTON_MODE) {
-					fprintf(lcd, "PULSE MODE: BUTTON\n");
-				}
+			#define ESC 27
+			#define CLEAR_LCD_STRING "[2J"
+			fprintf(lcd, "%c%s", ESC, CLEAR_LCD_STRING);
+			if (implementation_mode == C_MODE) {
+				fprintf(lcd, "IMPL MODE: C\n");
+			}
+			else if (implementation_mode == SCCHARTS_MODE) {
+				fprintf(lcd, "IMPL MODE: SCCHARTS\n");
 			}
 		}
 
