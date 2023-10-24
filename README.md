@@ -8,7 +8,7 @@
 
 ### Pacemaker in Action on the FPGA Altera DE2-115
 
-https://github.com/JayJsan/Virtual-Pacemaker/assets/103753552/d561e4fe-bbad-40ff-9a23-1b90f5efa6e7
+https://github.com/JayJsan/Virtual-Pacemaker/assets/103753552/856dbf16-c104-42cc-8acb-81b6e66e1f29
 
 > The green lights indicate pacing of the heart where the left half of the LEDs indicate the atrium and the right half to be the ventricle.
 
